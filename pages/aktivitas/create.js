@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 function Aktivitas() {
 
     return (
-        <Flex w='full' bg='blue.600' justify={'center'} align='center'>
+        <Flex w='full' bg='blue.600' justify={'center'} align='center' py='5%'>
             <VStack bg='white' borderRadius={'12px'} p='51px' align={'flex-start'} w='80%'>
                 <Heading fontSize={'24px'} mb='23px'>Buat Aktivitas</Heading>
                 <FormControl isRequired>

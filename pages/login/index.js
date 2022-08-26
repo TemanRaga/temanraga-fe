@@ -13,7 +13,7 @@ function AlternateLogin() {
 
 function Login() {
     return (
-        <Flex w='full' h='90vh' bg='blue.600' justify={'center'} align='center'>
+        <Flex w='full' h='90vh' bg='blue.600' justify={'center'} align='center' py='5%'>
             <VStack bg='white' borderRadius={'12px'} p='51px' align={'flex-start'}>
                 <Heading fontSize={'24px'} mb='23px'>Masuk</Heading>
                 <FormControl>
