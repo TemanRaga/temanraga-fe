@@ -1,10 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import Footer from "../components/Footer";
+import { Navbar, Footer } from '../components'
 import theme from '../theme'
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
+      <Navbar />
       <Component {...pageProps} />
       <Footer />
     </ChakraProvider>
