@@ -8,15 +8,25 @@ function Footer() {
                 <Text fontSize={{ base: 10, sm: 12, md: 16 }}>© TemanRaga 2022. All Rights Reserved.</Text>
                 <HStack spacing='20px' justify={'space-between'}>
                     <Image src='linelogo.svg' onClick={() => {
-                        window.location.href = "https://linevoom.line.me/user/_dTuaIG7gAO4PrGBOjaqKHrldjjG9ti-nImejj8g?utm_medium=windows&utm_source=desktop&utm_campaign=OA_Profile";
+                        window.location.href = "https://garudahacks.com/";
                     }} _hover={{
                         cursor: 'pointer'
                     }} />
-                    <Image src='facebooklogo.svg' _hover={{
+                    <Image src='facebooklogo.svg' onClick={() => {
+                        window.location.href = "https://garudahacks.com/";
+                    }} _hover={{
                         cursor: 'pointer'
                     }} />
-                    <Image src='instagramlogo.svg' />
-                    <Image src='twitterlogo.svg' />
+                    <Image src='instagramlogo.svg' onClick={() => {
+                        window.location.href = "https://garudahacks.com/";
+                    }} _hover={{
+                        cursor: 'pointer'
+                    }} />
+                    <Image src='twitterlogo.svg' onClick={() => {
+                        window.location.href = "https://garudahacks.com/";
+                    }} _hover={{
+                        cursor: 'pointer'
+                    }} />
                 </HStack>
             </HStack>
         </Flex>
