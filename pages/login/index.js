@@ -20,7 +20,7 @@ function Login() {
                     <FormLabel color='#2F2F2F' fontWeight={500}>Email</FormLabel>
                     <Input type='email' mb='23px' />
                     <FormLabel color='#2F2F2F' fontWeight={500}>Password</FormLabel>
-                    <Input type='email' mb='23px' />
+                    <Input type='password' mb='23px' />
                     <Button colorScheme={'blue'} w='full' mb='23px'>Masuk</Button>
                 </FormControl>
                 <Text pb='23px' alignSelf={'center'} fontWeight={400}><Text as='span' color='blue.600' >Daftar </Text>disini apabila belum memiliki akun</Text>
