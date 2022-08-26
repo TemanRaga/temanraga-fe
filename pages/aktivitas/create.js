@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flex, VStack, Heading, FormControl, FormLabel, Input, Button, HStack, Textarea, Text, Stack, Box } from '@chakra-ui/react'
+import { Flex, VStack, Heading, FormControl, FormLabel, Input, Button, HStack, Textarea, Text, Stack, Box, Select } from '@chakra-ui/react'
 import { Icon } from '@iconify/react';
 
 function Aktivitas() {
@@ -16,7 +16,10 @@ function Aktivitas() {
                         </VStack>
                         <VStack align={'flex-start'} mb='23px' w={{ base: '100%', md: '45%' }}>
                             <FormLabel color='#2F2F2F' fontWeight={500}>Gender khusus</FormLabel>
-                            <Input />
+                            <Select placeholder='Semua'>
+                                <option value='option1'>Laki-Laki</option>
+                                <option value='option2'>Perempuan</option>
+                            </Select>
                         </VStack>
                     </Flex>
                     <Flex justify='space-between' flexDirection={{ base: 'column', md: 'row' }}>
@@ -32,11 +35,11 @@ function Aktivitas() {
                     <Flex justify='space-between' flexDirection={{ base: 'column', md: 'row' }}>
                         <VStack align={'flex-start'} mb='23px' w={{ base: '100%', md: '45%' }}>
                             <FormLabel color='#2F2F2F' fontWeight={500}>Tanggal dan waktu dimulai</FormLabel>
-                            <Input />
+                            <Input type="datetime-local" />
                         </VStack>
                         <VStack align={'flex-start'} mb='23px' w={{ base: '100%', md: '45%' }}>
                             <FormLabel color='#2F2F2F' fontWeight={500}>Tanggal dan waktu selesai</FormLabel>
-                            <Input />
+                            <Input type="datetime-local" />
                         </VStack>
                     </Flex>
                     <FormLabel color='#2F2F2F' fontWeight={500}>Deskripsi</FormLabel>
