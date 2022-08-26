@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import Footer from "../components/Footer";
 import theme from '../theme'
-import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }) {
   return (
