@@ -1,7 +1,9 @@
-import React from 'react'
-import { Flex, VStack, Heading, FormControl, FormLabel, Input, Button, HStack, Textarea, Text } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { Flex, VStack, Heading, FormControl, FormLabel, Input, Button, HStack, Textarea, Text, Stack, Box } from '@chakra-ui/react'
+import { Icon } from '@iconify/react';
 
 function Aktivitas() {
+
     return (
         <Flex w='full' bg='blue.600' justify={'center'} align='center'>
             <VStack bg='white' borderRadius={'12px'} p='51px' align={'flex-start'} w='80%'>
@@ -40,7 +42,13 @@ function Aktivitas() {
                     <FormLabel color='#2F2F2F' fontWeight={500}>Deskripsi</FormLabel>
                     <Textarea mb='23px' />
                     <Text color='#2F2F2F' fontWeight={500}>Foto atau logo aktivitas</Text>
-                    <Button my='23px'>Tambah</Button>
+                    <Box my='23px' fontWeight={500} borderRadius={'4px'} border='1px solid #2B6CB0' px='45px' py='7px' w='fit-content'>Tambah</Box>
+                    <HStack>
+                        <Box my='23px' fontWeight={500} borderRadius={'4px'} border='1px solid #2B6CB0' px='45px' py='7px'>Sesuatu.jpg</Box>
+                        <Stack border='1px solid #C53030' borderRadius={'4px'} p='10px'>
+                            <Icon icon='fa-solid:trash-alt' color='#C53030' />
+                        </Stack>
+                    </HStack>
                     <Button colorScheme={'blue'} w='full' mt='100px' type='submit'>Buat Aktivitas</Button>
                 </FormControl>
             </VStack>
