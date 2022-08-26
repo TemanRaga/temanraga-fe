@@ -1,5 +1,8 @@
+import Footer from "../components/Footer";
+
 export default function Home() {
-  return (
-    <span>Teman Raga</span>
+  return (<>
+    <Footer />
+  </>
   )
 }
