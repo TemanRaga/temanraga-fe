@@ -1,4 +1,4 @@
-import { VStack, FormControl, FormLabel, Input, Button, Heading, Flex, Text, HStack, Divider, Box } from '@chakra-ui/react'
+import { VStack, FormControl, FormLabel, Input, Button, Heading, Flex, Text, HStack, Divider } from '@chakra-ui/react'
 import React from 'react'
 import { Icon } from '@iconify/react'
 
