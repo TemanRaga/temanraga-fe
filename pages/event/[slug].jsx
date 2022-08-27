@@ -88,14 +88,15 @@ export default function EventDetail() {
 
   const handleRegister = () => {
     setIsLoadingJoin(true);
-    fetch(`${serverEnv}/api/v1/events/${id}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
-        if (res.status !== 200) {
+        console.log(res);
+        if (res.status !== 201) {
           toast({
             title: `${res.statusText}`,
             description: "Gagal untuk mengikuti aktivitas",
@@ -113,6 +114,9 @@ export default function EventDetail() {
               duration: 2000,
               isClosable: true,
             });
+            setTimeout(() => {
+              Router.push("/dashboard");
+            }, 2000);
           }, 500);
         }
         setIsLoadingJoin(false);
@@ -131,7 +135,7 @@ export default function EventDetail() {
 
   const handleDelete = () => {
     setIsLoadingDelete(true);
-    fetch(`${serverEnv}/api/v1/events/${id}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
@@ -243,7 +247,7 @@ export default function EventDetail() {
             <HStack gap={4} flexDirection="row">
               <Icon width="24px" height="24px" icon="akar-icons:clock" />
               <Text>
-                {start} : {finish}
+                {start} - {finish}
               </Text>
             </HStack>
           </Flex>
