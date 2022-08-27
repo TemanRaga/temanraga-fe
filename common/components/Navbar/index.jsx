@@ -6,14 +6,18 @@ import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
-  
   // States
   const { isOpen, onToggle } = useDisclosure();
+  const [isLogin, setIsLogin] = useState(false);
 
-  const token = Cookies.get("access-temanraga")
-  
-  const isLogin = token ? true : false
-  
+  useEffect(() => {
+    const token = Cookies.get("access-temanraga");
+
+    const checkLogin = token ? true : false;
+
+    setIsLogin(checkLogin);
+  }, []);
+
   return (
     <>
       <Flex

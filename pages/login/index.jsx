@@ -74,10 +74,10 @@ function Login() {
                 Cookies.set("email-user", data.email, { expires: 365 });
                 Cookies.set("id-user", data.id, { expires: 365 });
                 Cookies.set("is_verified", data.is_verified, { expires: 365 });
-                Cookies.set("name-user",data.name, {expires : 365})
+                Cookies.set("name-user", data.name, { expires: 365 });
 
                 setTimeout(() => {
-                Router.push("/");
+                  Router.push("/");
                 }, 1500);
               })
               .catch((err) => {
