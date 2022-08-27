@@ -13,7 +13,7 @@ import {
   Stack,
   Radio,
   useToast,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import Router from "next/router";
 import React, { useState } from "react";
@@ -157,13 +157,13 @@ function Login(props) {
             w="full"
             mb="23px"
             onClick={handleSubmit}
-            type='submit'
+            type="submit"
           >
             Daftar
           </Button>
         </FormControl>
         <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Link href='/login' color="blue.600">
+          <Link href="/login" color="blue.600">
             Masuk{" "}
           </Link>
           disini apabila sudah memiliki akun

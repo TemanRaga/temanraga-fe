@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Stack,
   Container,
@@ -10,32 +11,131 @@ import {
   Box,
   Checkbox,
 } from "@chakra-ui/react";
-
+import { SearchIcon } from "@chakra-ui/icons";
 import { Card } from "../../common/components";
+import { localEnv, serverEnv } from "../../common/constant/env";
+import axios from "axios";
+import Router from "next/router";
 
 export default function Event() {
-
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
 
-  useEffect(() => {
-    const getLocation = () => {
-      if (!navigator.geolocation) {
-        setStatus('Geolocation is not supported by your browser');
-      } else {
-        setStatus('Locating...');
-        navigator.geolocation.getCurrentPosition((position) => {
+  // States
+  const [data, setData] = useState([]);
+  const [showData, setShowData] = useState([]);
+  const [filterState, setFilterState] = useState({
+    location: "",
+    activity: "",
+    gender: 2,
+  });
+
+  const [activitySearchText, setActivitySearchText] =
+    useState("Semua aktivitas");
+  const [locationSearchText, setLocationSearchText] = useState("semua lokasi");
+  const [filterText, setFilterText] = useState({
+    activity: "Semua aktivitas",
+    location: "semua lokasi",
+  });
+
+  // Handler
+  const handleFetchData = () => {
+    let config = {
+      url: `${serverEnv}/api/v1/events/`,
+      method: "GET",
+    };
+    axios(config)
+      .then((res) => {
+        let datas = res.data;
+        let list = datas.data;
+        setData(list);
+        setShowData(list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleFilter = () => {
+    if (filterState.activity !== "" && filterState.location !== "") {
+      setFilterText({
+        ...filterText,
+        activity: `Hasil pencarian dari "${filterState.activity}"`,
+        location: `lokasi terdekatmu`,
+      });
+
+      let filteredData = data.filter(
+        (ctx) =>
+          ctx.name
+            .toLowerCase()
+            .includes(filterState.activity.toLocaleLowerCase()) &&
+          ctx.location
+            .toLowerCase()
+            .includes(filterState.location.toLocaleLowerCase())
+      );
+      setShowData(filteredData);
+    } else if (filterState.activity !== "") {
+      setFilterText({
+        ...filterText,
+        activity: `Hasil pencarian dari "${filterState.activity}"`,
+      });
+
+      let filteredData = data.filter((ctx) =>
+        ctx.name
+          .toLowerCase()
+          .includes(filterState.activity.toLocaleLowerCase())
+      );
+
+      setShowData(filteredData);
+    } else if (filterState.location !== "") {
+      setFilterText({
+        ...filterText,
+        location: `lokasi terdekatmu`,
+      });
+
+      let filteredData = data.filter((ctx) =>
+        ctx.location
+          .toLowerCase()
+          .includes(filterState.location.toLocaleLowerCase())
+      );
+      setShowData(filteredData);
+    } else {
+      setFilterText({
+        ...filterText,
+        activity: `Semua aktivitas`,
+        location: `semua lokasi`,
+      });
+      setShowData(data);
+    }
+  };
+
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus("Geolocation is not supported by your browser");
+    } else {
+      setStatus("Locating...");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
           setStatus(null);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
-        }, () => {
-          setStatus('Unable to retrieve your location');
-        });
-      }
+        },
+        () => {
+          setStatus("Unable to retrieve your location");
+        }
+      );
     }
-    getLocation();
-  }, [])
+  };
+
+  // UseEffect
+  useEffect(() => {
+    handleFetchData();
+  }, []);
+
+  useEffect(() => {
+    handleFilter();
+  }, [filterState]);
 
   return (
     <Flex flexDirection="column">
@@ -44,10 +144,41 @@ export default function Event() {
           <Text fontSize="3xl" textAlign="center" mb="2%" fontWeight="semibold">
             Aktivitas
           </Text>
-          <Input placeholder="Cari Aktivitas" />
+          <Flex
+            flexDirection="row"
+            border="1px solid #C0C0C0"
+            borderRadius="10px"
+            px="25px"
+            py="10px"
+          >
+            <Input
+              placeholder="Cari Aktivitas"
+              variant="unstyled"
+              width="70%"
+              onChange={(e) => {
+                setFilterState({
+                  ...filterState,
+                  activity: e.target.value,
+                });
+              }}
+            />
+            <Flex width="1px" background="#C0C0C0" />
+            <SearchIcon margin="auto 6px auto 11px" />
+            <Input
+              placeholder="Cari Lokasi"
+              variant="unstyled"
+              width="20%"
+              onChange={(e) => {
+                setFilterState({
+                  ...filterState,
+                  location: e.target.value,
+                });
+              }}
+            />
+          </Flex>
         </Flex>
 
-        <Flex flexDirection="row" px="8%">
+        <Flex flexDirection="row" px="8%" mb="10%">
           <Flex width="13%" flexDirection="column">
             <Text fontSize="xl" mb="3%" fontWeight="semibold">
               Filter
@@ -65,17 +196,23 @@ export default function Event() {
           </Flex>
 
           <Flex width="80%" flexDirection="column">
-            <Text fontSize="xl" mb="2%" fontWeight="semibold">
-              Semua Aktivitas
+            <Text fontSize="2xl" mb="2%" fontWeight="semibold">
+              {`${filterText.activity} di ${filterText.location}`}
             </Text>
 
             <Flex flexDirection="row" flexWrap="wrap" gap={10}>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {showData.map((ctx, idx) => (
+                <Card
+                  name={ctx.name}
+                  description={ctx.description}
+                  location={ctx.location}
+                  picture={ctx.image}
+                  key={idx}
+                  onClick={()=>{
+                    Router.push(`/event/${ctx.id}`)
+                  }}
+                />
+              ))}
             </Flex>
           </Flex>
         </Flex>

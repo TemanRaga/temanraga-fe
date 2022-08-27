@@ -7,13 +7,13 @@ import {
   Td,
   TableContainer,
   Flex,
-  Button
+  Button,
 } from "@chakra-ui/react";
 
 const CreatedTable = ({ data }) => {
   return (
     <TableContainer>
-      <Table variant="tr-simple" >
+      <Table variant="tr-simple">
         <Thead>
           <Tr>
             <Th isNumeric>No</Th>
@@ -31,12 +31,24 @@ const CreatedTable = ({ data }) => {
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
-                <Button colorScheme="red" borderColor="red.600" variant="outline">Hapus</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
+                <Button
+                  colorScheme="red"
+                  borderColor="red.600"
+                  variant="outline"
+                >
+                  Hapus
+                </Button>
               </Flex>
             </Td>
           </Tr>
@@ -45,12 +57,24 @@ const CreatedTable = ({ data }) => {
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
-                <Button colorScheme="red" borderColor="red.600" variant="outline">Hapus</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
+                <Button
+                  colorScheme="red"
+                  borderColor="red.600"
+                  variant="outline"
+                >
+                  Hapus
+                </Button>
               </Flex>
             </Td>
           </Tr>
@@ -59,17 +83,28 @@ const CreatedTable = ({ data }) => {
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
             <Td>Testimonial tes gender asoko</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
-            <Td textAlign="center" isNumeric>25.4</Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
+            <Td textAlign="center" isNumeric>
+              25.4
+            </Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
-                <Button colorScheme="red" borderColor="red.600" variant="outline">Hapus</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
+                <Button
+                  colorScheme="red"
+                  borderColor="red.600"
+                  variant="outline"
+                >
+                  Hapus
+                </Button>
               </Flex>
             </Td>
           </Tr>
         </Tbody>
-
       </Table>
     </TableContainer>
   );

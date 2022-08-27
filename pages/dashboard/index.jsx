@@ -5,6 +5,7 @@ import ProfileText from "./_component/ProfileText";
 import IconText from "./_component/IconText";
 import CreatedTable from "./_component/CreatedTable";
 import FollowedTable from "./_component/FollowedTable";
+
 import { Card } from "../../common/components";
 
 export default function Dashboard() {
@@ -87,7 +88,11 @@ export default function Dashboard() {
                 <Text textAlign="center" fontWeight="semibold" fontSize="24px">
                   Belum ada aktivitas yang sedang diikuti, yuk cari sekarang!
                 </Text>
-                <Button onClick={() => router.push('/event')} colorScheme="blue" bg="blue.600">
+                <Button
+                  onClick={() => router.push("/event")}
+                  colorScheme="blue"
+                  bg="blue.600"
+                >
                   Cari aktivitas
                 </Button>
               </VStack>
@@ -113,14 +118,14 @@ export default function Dashboard() {
           </Box>
         ) : (
           <VStack gap="2" mt="8">
-            <Text
-              textAlign="center"
-              fontWeight="semibold"
-              fontSize="24px"
-            >
+            <Text textAlign="center" fontWeight="semibold" fontSize="24px">
               Kamu belum pernah membuat aktivitas nih, ayo buat sekarang!
             </Text>
-            <Button onClick={() => router.push('/event/create')} colorScheme="blue" bg="blue.600">
+            <Button
+              onClick={() => router.push("/event/create")}
+              colorScheme="blue"
+              bg="blue.600"
+            >
               Buat aktivitas
             </Button>
           </VStack>

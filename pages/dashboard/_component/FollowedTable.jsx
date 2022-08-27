@@ -7,7 +7,7 @@ import {
   Td,
   TableContainer,
   Button,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
 
 const FollowedTable = ({ data }) => {
@@ -33,7 +33,9 @@ const FollowedTable = ({ data }) => {
             <Td>25.4</Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
               </Flex>
             </Td>
           </Tr>
@@ -45,7 +47,9 @@ const FollowedTable = ({ data }) => {
             <Td>25.4</Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
               </Flex>
             </Td>
           </Tr>
@@ -57,7 +61,9 @@ const FollowedTable = ({ data }) => {
             <Td isNumeric>25.4</Td>
             <Td>
               <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">Detail</Button>
+                <Button colorScheme="blue" bg="blue.600">
+                  Detail
+                </Button>
               </Flex>
             </Td>
           </Tr>
