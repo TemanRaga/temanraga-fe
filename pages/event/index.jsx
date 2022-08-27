@@ -11,6 +11,7 @@ import {
   Box,
   Checkbox,
 } from "@chakra-ui/react";
+import { SearchIcon} from '@chakra-ui/icons'
 import { Card } from "../../common/components";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import axios from "axios";
@@ -24,6 +25,12 @@ export default function Event() {
   const [data, setData] = useState([]);
   const [filterState, setFilterState] = useState({
     location: "",
+    name: "",
+    gender: 0,
+  });
+  const [filterText, setFilterText] = useState({
+    activity: "Semua aktivitas",
+    location: "semua lokasi",
   });
 
   // Handler
@@ -47,9 +54,13 @@ export default function Event() {
     // TODO
   };
 
-  const handleFilterDataByLocation = () => {};
+  const handleFilterDataByLocation = () => {
+    //TODO
+  };
 
-  const handleFilterDataByGender = () => {};
+  const handleFilterDataByGender = () => {
+    // TODO
+  };
 
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
@@ -81,7 +92,25 @@ export default function Event() {
           <Text fontSize="3xl" textAlign="center" mb="2%" fontWeight="semibold">
             Aktivitas
           </Text>
-          <Input placeholder="Cari Aktivitas" />
+          <Flex
+            flexDirection="row"
+            border="1px solid #C0C0C0"
+            borderRadius="10px"
+            px="25px"
+            py="10px"
+          >
+            <Input placeholder="Cari Aktivitas" variant="unstyled" 
+              width="70%"
+            />
+            <Flex
+              width="1px"
+              background="#C0C0C0"
+            />
+            <SearchIcon margin="auto 6px auto 11px"/>
+            <Input placeholder="Cari Lokasi" variant="unstyled" 
+              width="20%"
+            />
+          </Flex>
         </Flex>
 
         <Flex flexDirection="row" px="8%" mb="10%">
@@ -102,12 +131,12 @@ export default function Event() {
           </Flex>
 
           <Flex width="80%" flexDirection="column">
-            <Text fontSize="xl" mb="2%" fontWeight="semibold">
-              Semua Aktivitas
+            <Text fontSize="2xl" mb="2%" fontWeight="semibold">
+              {`${filterText.activity} di ${filterText.location}`}
             </Text>
 
             <Flex flexDirection="row" flexWrap="wrap" gap={10}>
-              {data.map((ctx, idx)=>(
+              {data.map((ctx, idx) => (
                 <Card
                   name={ctx.name}
                   description={ctx.description}
