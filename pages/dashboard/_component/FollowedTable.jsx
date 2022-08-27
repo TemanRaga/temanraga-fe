@@ -26,7 +26,7 @@ const FollowedTable = ({ data }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((ctx, idx) => (
+          {data && data.map((ctx, idx) => (
             <Tr key={ctx.name}>
               <Td>{idx}</Td>
               <Td>{ctx.name}</Td>
