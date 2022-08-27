@@ -13,6 +13,7 @@ import {
   Stack,
   Radio,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import Router from "next/router";
 import React, { useState } from "react";
@@ -162,9 +163,9 @@ function Login(props) {
           </Button>
         </FormControl>
         <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Text as="span" color="blue.600">
+          <Link href='/login' color="blue.600">
             Masuk{" "}
-          </Text>
+          </Link>
           disini apabila sudah memiliki akun
         </Text>
         <HStack w="full" pb="23px">
