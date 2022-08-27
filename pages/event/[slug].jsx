@@ -17,6 +17,7 @@ import urlSplitter from "../../common/helper/urlSplitter";
 export default function EventDetail() {
   const toast = useToast();
   const [isJoined, setIsJoined] = useState(false);
+  const [isNewlyJoined, setIsNewlyJoined] = useState(false);
   const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const [idUser, setIdUser] = useState(Cookies.get("id-user"));
   const [isLoadingJoin, setIsLoadingJoin] = useState(false);
@@ -105,6 +106,7 @@ export default function EventDetail() {
           });
         } else {
           setIsJoined(true);
+          setIsNewlyJoined(true);
           setTimeout(() => {
             toast({
               title: "Edit berhasil",
@@ -236,7 +238,7 @@ export default function EventDetail() {
             <HStack gap={4} flexDirection="row">
               <Icon width="24px" height="24px" icon="bi:person-fill" />
               <Text>
-                {participants && participants.length} / {maxParticipants}
+                {isNewlyJoined ? participants.length + 1 : participants.length} / {maxParticipants}
               </Text>
             </HStack>
 
