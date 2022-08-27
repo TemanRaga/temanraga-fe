@@ -28,7 +28,6 @@ function Kelebihan() {
 }
 
 export default function Home() {
-
   const [activites, setActivites] = useState();
 
   useEffect(() => {
@@ -45,8 +44,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, [])
-
+  }, []);
 
   return (
     <>
@@ -132,20 +130,21 @@ export default function Home() {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {activites && activites.map((ctx, idx) => (
-            <SwiperSlide key={ctx.name}>
-              <Card
-                name={ctx.name}
-                description={ctx.description}
-                location={ctx.location}
-                picture={ctx.image}
-                key={idx}
-                onClick={() => {
-                  Router.push(`/event/${ctx.id}`)
-                }}
-              />
-            </SwiperSlide>
-          ))}
+          {activites &&
+            activites.map((ctx, idx) => (
+              <SwiperSlide key={ctx.name}>
+                <Card
+                  name={ctx.name}
+                  description={ctx.description}
+                  location={ctx.location}
+                  picture={ctx.image}
+                  key={idx}
+                  onClick={() => {
+                    Router.push(`/event/${ctx.id}`);
+                  }}
+                />
+              </SwiperSlide>
+            ))}
         </Swiper>
       </Box>
     </>

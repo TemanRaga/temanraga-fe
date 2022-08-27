@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NextLink from "next/link";
 import DropdownButton from "./dropdownButton";
 import Dropdown from "./dropdown";
 import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  
+  // States
   const { isOpen, onToggle } = useDisclosure();
 
+  const token = Cookies.get("access-temanraga")
+  
+  const isLogin = token ? true : false
+  
   return (
     <>
       <Flex
