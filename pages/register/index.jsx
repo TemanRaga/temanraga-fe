@@ -43,14 +43,20 @@ function Login(props) {
     })
       .then(async (res) => {
         if (res.status !== 201) {
-          toast({
-            title: `${res.statusText}`,
-            description: "Failed creating your account",
-            status: "error",
-            duration: 4000,
-            isClosable: true,
-          });
-          setIsLoading(false);
+          console.log(res);
+          return res
+            .json()
+            .then((data) => {
+              console.log(data);
+              toast({
+                title: `${res.statusText}`,
+                description: `${data.password[0]}`,
+                status: "error",
+                duration: 4000,
+                isClosable: true,
+              });
+              setIsLoading(false);
+            })
         } else {
           setTimeout(() => {
             toast({
