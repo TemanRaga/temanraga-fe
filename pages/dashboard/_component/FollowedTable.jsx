@@ -8,6 +8,7 @@ import {
   TableContainer,
   Button,
   Flex,
+  Link
 } from "@chakra-ui/react";
 
 const FollowedTable = ({ data }) => {
@@ -25,48 +26,24 @@ const FollowedTable = ({ data }) => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>1</Td>
-            <Td>millimetres (mm)</Td>
-            <Td>25.4</Td>
-            <Td>millimetres (mm)</Td>
-            <Td>25.4</Td>
-            <Td>
-              <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">
-                  Detail
-                </Button>
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>2</Td>
-            <Td>centimetres (cm)</Td>
-            <Td>30.48</Td>
-            <Td>millimetres (mm)</Td>
-            <Td>25.4</Td>
-            <Td>
-              <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">
-                  Detail
-                </Button>
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>3</Td>
-            <Td>metres (m)</Td>
-            <Td isNumeric>0.91444</Td>
-            <Td>millimetres (mm)</Td>
-            <Td isNumeric>25.4</Td>
-            <Td>
-              <Flex gap="4" justifyContent="center">
-                <Button colorScheme="blue" bg="blue.600">
-                  Detail
-                </Button>
-              </Flex>
-            </Td>
-          </Tr>
+          {data && data.map((ctx, idx) => (
+            <Tr key={ctx.name}>
+              <Td>{idx}</Td>
+              <Td>{ctx.name}</Td>
+              <Td>{ctx.date}, {ctx.start}</Td>
+              <Td>{ctx.date}, {ctx.finish}</Td>
+              <Td >{ctx.location}</Td>
+              <Td>
+                <Flex gap="4" justifyContent="center">
+                  <Link href={`/event/${ctx.id}`}>
+                    <Button colorScheme="blue" bg="blue.600">
+                      Detail
+                    </Button>
+                  </Link>
+                </Flex>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </TableContainer>

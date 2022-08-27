@@ -1,18 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Stack, Text, Button, VStack } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text, Button, VStack, HStack, Link } from "@chakra-ui/react";
 import ProfileText from "./_component/ProfileText";
 import IconText from "./_component/IconText";
 import CreatedTable from "./_component/CreatedTable";
 import FollowedTable from "./_component/FollowedTable";
 
 import { Card } from "../../common/components";
+import { localEnv, serverEnv } from "../../common/constant/env";
+import Cookies from "js-cookie";
+
 
 export default function Dashboard() {
   const router = useRouter();
   const [hasOngoingActivity, setHasOngoingActivity] = useState(true);
   const [hasCreateActivity, setHasCreateActivity] = useState(true);
   const [hasHistoricActivity, setHasHistoricActivity] = useState(true);
+  const [userData, setUserData] = useState({
+    user: {
+      name: "",
+      email: "",
+      gender: 0,
+      address: ""
+    },
+    event_soon: [],
+    event_created: [],
+    event_done: []
+  });
+
+  useEffect(() => {
+    fetch(`${serverEnv}/api/v1/profiles/`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setUserData(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+  console.log(userData);
 
   return (
     <Box w="full" py="80px" bg="blue.600">
@@ -28,7 +63,7 @@ export default function Dashboard() {
           fontSize={{ base: "24", sm: "28", md: "32" }}
           fontWeight="semibold"
         >
-          Halo, Muhammad Haqqi Al Farizi
+          Halo, {userData.user.name}
         </Text>
         <Stack
           direction={{ base: "column", xl: "row" }}
@@ -46,13 +81,16 @@ export default function Dashboard() {
             borderRadius="xl"
             w="100%"
           >
-            <ProfileText title="Nama" text="Muhammad Haqqi Al Farizi" />
-            <ProfileText title="Email" text="muhammad.haqqi01@ui.ac.id" />
-            <ProfileText title="Jenis Kelamin" text="Laki-laki" />
+            <ProfileText title="Nama" text={userData.user.name} />
+            <ProfileText title="Email" text={userData.user.email} />
+            <ProfileText title="Jenis Kelamin" text={userData.user.gender ? 'Perempuan' : 'Laki-laki'} />
             <ProfileText
               title="Alamat"
-              text="Kampus Universitas Indonesia, Jakarta"
+              text={userData.user.address}
             />
+            <Link href='/dashboard/editprofile' textAlign={'center'} mt='6'>
+              <Button colorScheme={'blue'}>Edit Profil</Button>
+            </Link>
           </Flex>
           <Flex
             flexDirection="column"
@@ -68,19 +106,19 @@ export default function Dashboard() {
               <>
                 <Text fontWeight="semibold">Aktivitas terdekat</Text>
                 <Text fontSize="28" fontWeight="semibold" mb="4">
-                  Turnamen Bola Gan
+                  {userData.event_soon.length != 0 && userData.event_soon[0].name}
                 </Text>
                 <IconText
                   icon="ci:location"
-                  text="Jalan Dago nomor 2, Jakarta"
+                  text={userData.event_soon.length != 0 && userData.event_soon[0].location}
                 />
                 <IconText
                   icon="ic:baseline-date-range"
-                  text="Jalan Dago nomor 2, Jakarta"
+                  text={userData.event_soon.length != 0 && userData.event_soon[0].date}
                 />
                 <IconText
                   icon="akar-icons:clock"
-                  text="Jalan Dago nomor 2, Jakarta"
+                  text={userData.event_soon.length != 0 && userData.event_soon[0].start + " - " + userData.event_soon[0].finish}
                 />
               </>
             ) : (
@@ -105,16 +143,32 @@ export default function Dashboard() {
               Aktivitas yang akan diikuti
             </Text>
             <Flex>
-              <Card></Card>
+              {userData.event_soon.map((ctx, idx) => (
+                <Card
+                  name={ctx.name}
+                  description={ctx.description}
+                  location={ctx.location}
+                  picture={ctx.image}
+                  key={idx}
+                  onClick={() => {
+                    Router.push(`/event/${ctx.id}`);
+                  }}
+                />
+              ))}
             </Flex>
           </Box>
         )}
         {hasCreateActivity ? (
           <Box>
-            <Text fontSize="24px" fontWeight="semibold" mb="8">
-              Aktivitas yang telah dibuat
-            </Text>
-            <CreatedTable data={null} />
+            <HStack mb="8">
+              <Text fontSize="24px" fontWeight="semibold" mr='4'>
+                Aktivitas yang telah dibuat
+              </Text>
+              <Link href='/event/create'>
+                <Button colorScheme={'blue'}>Buat Aktivitas</Button>
+              </Link>
+            </HStack>
+            <CreatedTable data={userData.event_created} />
           </Box>
         ) : (
           <VStack gap="2" mt="8">
@@ -135,7 +189,7 @@ export default function Dashboard() {
             <Text fontSize="24px" fontWeight="semibold" mb="8">
               Aktivitas yang telah diikuti
             </Text>
-            <FollowedTable data={null} />
+            <FollowedTable data={userData.event_done} />
           </Box>
         )}
       </Flex>
