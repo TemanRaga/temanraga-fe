@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import Router from "next/router";
 import React, { useState } from "react";
-import { Icon } from "@iconify/react";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import { OAuthButton } from "../../common/components";
 
@@ -158,6 +157,7 @@ function Login(props) {
             w="full"
             mb="23px"
             onClick={handleSubmit}
+            type='submit'
           >
             Daftar
           </Button>
