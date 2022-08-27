@@ -5,7 +5,6 @@ export default function Card({ title, picture, paragraph, date }) {
   return (
     <Flex
       border="1px solid #C0C0C0"
-      w="45%"
       borderRadius="10px"
       p="20px"
       borderShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
@@ -14,7 +13,7 @@ export default function Card({ title, picture, paragraph, date }) {
         <Image
           src={picture}
           borderRadius="10px"
-          w={{ lg: "300px" }} 
+          boxSize={{ base: '150px', md: '400px' }}
         />
       </Flex>
 
