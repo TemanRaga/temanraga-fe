@@ -196,7 +196,7 @@ function CreateEvent() {
             5
           )}-${data.data.date.slice(0, 2)}T${data.data.finish}`,
         });
-        //if (idUser === data.data.created_by.id) Router.push("/event");
+        if (idUser === data.data.created_by.id) Router.push("/event");
       })
       .catch((err) => {
         console.log(err);
