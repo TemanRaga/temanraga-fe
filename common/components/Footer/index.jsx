@@ -3,7 +3,7 @@ import { Flex, HStack, Image, Text } from "@chakra-ui/react";
 
 function Footer() {
   return (
-    <Flex w="100%" h="80px" bg="#3182ce" px="4%" color="white">
+    <Flex w="100%" h="80px" bg="blue.600" px="4%" color="white">
       <HStack w="100%" justify={"space-between"}>
         <Text fontSize={{ base: 10, sm: 12, md: 16 }}>
           © TemanRaga 2022. All Rights Reserved.
