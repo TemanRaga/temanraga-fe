@@ -12,6 +12,7 @@ import { Card } from "../common/components";
 import React, { useEffect, useState } from "react";
 import { localEnv, serverEnv } from "../common/constant/env";
 import Router from "next/router";
+import Head from "next/head";
 
 function Kelebihan({ judul, deskripsi, img }) {
   return (
@@ -46,6 +47,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>TemanRaga - Home</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
         <Flex
           w="80%"

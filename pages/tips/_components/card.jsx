@@ -15,6 +15,7 @@ export default function Card({ title, picture, paragraph, date }) {
           borderRadius="10px"
           boxSize={{ base: '150px', md: '400px' }}
         />
+        <Image src={picture} borderRadius="10px" w={{ lg: "300px" }} />
       </Flex>
 
       <Flex direction="column" px="4%" width="60%">
@@ -23,7 +24,7 @@ export default function Card({ title, picture, paragraph, date }) {
         </Text>
 
         <Text fontSize="sm">{paragraph}</Text>
-        <Text fontSize="md" mt="15px" >
+        <Text fontSize="md" mt="15px">
           {date}
         </Text>
       </Flex>

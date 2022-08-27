@@ -19,6 +19,7 @@ import { Icon } from "@iconify/react";
 import { localEnv } from "../../common/constant/env";
 import Router from "next/router";
 import Cookies from "js-cookie";
+import Head from "next/head";
 
 function CreateEvent() {
   const [token, setToken] = useState(Cookies.get("access-temanraga"));
@@ -165,206 +166,212 @@ function CreateEvent() {
   };
 
   return (
-    <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
-      <VStack
-        bg="white"
-        borderRadius={"12px"}
-        p="51px"
-        align={"flex-start"}
-        w="80%"
-      >
-        <Heading fontSize={"24px"} mb="23px">
-          Buat Aktivitas
-        </Heading>
-        <FormControl isRequired>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+    <>
+      <Head>
+        <title>TemanRaga - Create Event</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
+        <VStack
+          bg="white"
+          borderRadius={"12px"}
+          p="51px"
+          align={"flex-start"}
+          w="80%"
+        >
+          <Heading fontSize={"24px"} mb="23px">
+            Buat Aktivitas
+          </Heading>
+          <FormControl isRequired>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Nama aktivitas
-              </FormLabel>
-              <Input
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    name: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Gender khusus
-              </FormLabel>
-              <Select
-                onChange={(e) =>
-                  setClientData({
-                    ...clientData,
-                    gender: e.target.value,
-                  })
-                }
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
               >
-                <option value="2">Semua orang</option>
-                <option value="0">Laki-Laki</option>
-                <option value="1">Perempuan</option>
-              </Select>
-            </VStack>
-          </Flex>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Nama aktivitas
+                </FormLabel>
+                <Input
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Gender khusus
+                </FormLabel>
+                <Select
+                  onChange={(e) =>
+                    setClientData({
+                      ...clientData,
+                      gender: e.target.value,
+                    })
+                  }
+                >
+                  <option value="2">Semua orang</option>
+                  <option value="0">Laki-Laki</option>
+                  <option value="1">Perempuan</option>
+                </Select>
+              </VStack>
+            </Flex>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Lokasi
-              </FormLabel>
-              <Input
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    location: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Lokasi
+                </FormLabel>
+                <Input
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      location: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Jumlah maksimal peserta
+                </FormLabel>
+                <Input
+                  type="number"
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      max_participants: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+            </Flex>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Jumlah maksimal peserta
-              </FormLabel>
-              <Input
-                type="number"
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    max_participants: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-          </Flex>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Tanggal dan waktu dimulai
+                </FormLabel>
+                <Input
+                  type="datetime-local"
+                  onChange={(e) =>
+                    setDate({
+                      ...date,
+                      startDate: e.target.value,
+                    })
+                  }
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Tanggal dan waktu selesai
+                </FormLabel>
+                <Input
+                  type="datetime-local"
+                  onChange={(e) =>
+                    setDate({
+                      ...date,
+                      endDate: e.target.value,
+                    })
+                  }
+                />
+              </VStack>
+            </Flex>
+            <FormLabel color="#2F2F2F" fontWeight={500}>
+              Deskripsi
+            </FormLabel>
+            <Textarea
               mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Tanggal dan waktu dimulai
-              </FormLabel>
-              <Input
-                type="datetime-local"
-                onChange={(e) =>
-                  setDate({
-                    ...date,
-                    startDate: e.target.value,
-                  })
-                }
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Tanggal dan waktu selesai
-              </FormLabel>
-              <Input
-                type="datetime-local"
-                onChange={(e) =>
-                  setDate({
-                    ...date,
-                    endDate: e.target.value,
-                  })
-                }
-              />
-            </VStack>
-          </Flex>
-          <FormLabel color="#2F2F2F" fontWeight={500}>
-            Deskripsi
-          </FormLabel>
-          <Textarea
-            mb="23px"
-            h={{ base: "200px", md: "250px" }}
-            onChange={(e) => {
-              setClientData({
-                ...clientData,
-                description: e.target.value,
-              });
-            }}
-          />
-          <Text color="#2F2F2F" fontWeight={500} mb="16px">
-            Foto atau logo aktivitas
-          </Text>
+              h={{ base: "200px", md: "250px" }}
+              onChange={(e) => {
+                setClientData({
+                  ...clientData,
+                  description: e.target.value,
+                });
+              }}
+            />
+            <Text color="#2F2F2F" fontWeight={500} mb="16px">
+              Foto atau logo aktivitas
+            </Text>
 
-          {isUploaded ? (
-            <HStack>
-              <Box
-                fontWeight={500}
-                borderRadius={"4px"}
-                border="1px solid #2B6CB0"
-                px="45px"
-                py="7px"
+            {isUploaded ? (
+              <HStack>
+                <Box
+                  fontWeight={500}
+                  borderRadius={"4px"}
+                  border="1px solid #2B6CB0"
+                  px="45px"
+                  py="7px"
+                >
+                  Sesuatu.jpg
+                </Box>
+                <Stack border="1px solid #C53030" borderRadius={"4px"} p="10px">
+                  <Icon icon="fa-solid:trash-alt" color="#C53030" />
+                </Stack>
+              </HStack>
+            ) : (
+              <HStack>
+                <Input
+                  w="fit-content"
+                  type="file"
+                  accept="image/x-png,image/jpg,image/jpeg"
+                  onChange={(e) =>
+                    setClientData({
+                      ...clientData,
+                      image: e.target.files[0],
+                    })
+                  }
+                ></Input>
+              </HStack>
+            )}
+            <Flex w="full" alignItems="center">
+              <Button
+                isLoading={isSubmitting}
+                onClick={handleSubmit}
+                colorScheme={"blue"}
+                bg="blue.600"
+                m="auto"
+                type="submit"
+                mt="96px"
               >
-                Sesuatu.jpg
-              </Box>
-              <Stack border="1px solid #C53030" borderRadius={"4px"} p="10px">
-                <Icon icon="fa-solid:trash-alt" color="#C53030" />
-              </Stack>
-            </HStack>
-          ) : (
-            <HStack>
-              <Input
-                w="fit-content"
-                type="file"
-                accept="image/x-png,image/jpg,image/jpeg"
-                onChange={(e) =>
-                  setClientData({
-                    ...clientData,
-                    image: e.target.files[0],
-                  })
-                }
-              ></Input>
-            </HStack>
-          )}
-          <Flex w="full" alignItems="center">
-            <Button
-              isLoading={isSubmitting}
-              onClick={handleSubmit}
-              colorScheme={"blue"}
-              bg="blue.600"
-              m="auto"
-              type="submit"
-              mt="96px"
-            >
-              Buat Aktivitas
-            </Button>
-          </Flex>
-          {clientData.image && <p>{clientData.image.name}</p>}
-        </FormControl>
-      </VStack>
-    </Flex>
+                Buat Aktivitas
+              </Button>
+            </Flex>
+            {clientData.image && <p>{clientData.image.name}</p>}
+          </FormControl>
+        </VStack>
+      </Flex>
+    </>
   );
 }
 
