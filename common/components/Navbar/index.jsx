@@ -77,7 +77,7 @@ const Navbar = () => {
                 onClick={() => {
                   Cookies.remove("access-temanraga");
                   Cookies.remove("refresh-temanraga");
-                  window.location.replace("/")
+                  window.location.replace("/");
                 }}
               >
                 Keluar
@@ -90,7 +90,7 @@ const Navbar = () => {
               bg="blue.600"
               onClick={() => {
                 console.log("Mantap Jiwah");
-                window.location.replace("/login")
+                window.location.replace("/login");
               }}
             >
               Masuk
