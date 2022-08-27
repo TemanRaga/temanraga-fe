@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Stack, Text, Button, VStack } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text, Button, VStack, HStack, Link } from "@chakra-ui/react";
 import ProfileText from "./_component/ProfileText";
 import IconText from "./_component/IconText";
 import CreatedTable from "./_component/CreatedTable";
@@ -88,6 +88,9 @@ export default function Dashboard() {
               title="Alamat"
               text={userData.user.address}
             />
+            <Link href='/dashboard/editprofile' textAlign={'center'} mt='6'>
+              <Button colorScheme={'blue'}>Edit Profil</Button>
+            </Link>
           </Flex>
           <Flex
             flexDirection="column"
@@ -157,9 +160,14 @@ export default function Dashboard() {
         )}
         {hasCreateActivity ? (
           <Box>
-            <Text fontSize="24px" fontWeight="semibold" mb="8">
-              Aktivitas yang telah dibuat
-            </Text>
+            <HStack mb="8">
+              <Text fontSize="24px" fontWeight="semibold" mr='4'>
+                Aktivitas yang telah dibuat
+              </Text>
+              <Link href='/event/create'>
+                <Button colorScheme={'blue'}>Buat Aktivitas</Button>
+              </Link>
+            </HStack>
             <CreatedTable data={userData.event_created} />
           </Box>
         ) : (
