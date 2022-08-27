@@ -12,25 +12,36 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import {
-  localEnv,
-  serverEnv,
-} from "../../common/constant/env"
+import { localEnv, serverEnv } from "../../common/constant/env";
 
-function AlternateLogin() {
-  return (
-    <Flex borderRadius={"4px"} border="1px solid #C0C0C0" py="9px" px="45px">
-      <Icon icon="flat-color-icons:google" />
-    </Flex>
-  );
-}
+function Login(props) {
+  // States
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    gender: 0,
+    address: "",
+  });
+  const toast = useToast();
 
-function Login() {
+  // Handler
+  const handleSubmit = () => {};
 
-  console.log(localEnv);
+  const handleOnDevelopment = () => {
+    toast({
+      title: "On Development",
+      description: "These feature is on development, please try again soon ..",
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="5%">
       <VStack bg="white" borderRadius={"12px"} p="51px" align={"flex-start"}>
@@ -41,23 +52,63 @@ function Login() {
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Nama Lengkap
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                name: e.target.value,
+                ...data,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Email
           </FormLabel>
-          <Input type="email" mb="23px" />
+          <Input
+            type="email"
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                email: e.target.value,
+                ...data,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Password
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                password: e.target.value,
+                ...data,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Alamat
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                address: e.target.value,
+                ...data,
+              });
+            }}
+          />
           <RadioGroup mb="23px">
             <Stack direction="row" spacing="24px">
-              <Radio value="1">Laki-Laki</Radio>
-              <Radio value="2">Perempuan</Radio>
+              <Radio
+                value="0"
+                onClick={(ctx) => {
+                  console.log(ctx.target);
+                }}
+              >
+                Laki-Laki
+              </Radio>
+              <Radio value="1">Perempuan</Radio>
             </Stack>
           </RadioGroup>
           <Button colorScheme={"blue"} w="full" mb="23px">
@@ -78,9 +129,14 @@ function Login() {
           <Divider />
         </HStack>
         <HStack>
-          <AlternateLogin />
-          <AlternateLogin />
-          <AlternateLogin />
+          <Flex
+            borderRadius={"4px"}
+            border="1px solid #C0C0C0"
+            py="9px"
+            px="45px"
+          >
+            <Icon icon="flat-color-icons:google" />
+          </Flex>
         </HStack>
       </VStack>
     </Flex>
