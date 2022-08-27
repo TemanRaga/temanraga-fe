@@ -24,6 +24,16 @@ const Dropdown = (props) => {
                 Aktivitas
               </Link>
             </NextLink>
+            <NextLink href="/tips" passHref>
+              <Link
+                w="full"
+                p="4"
+                fontWeight="semibold"
+                style={{ textDecoration: "none" }}
+              >
+                Tips
+              </Link>
+            </NextLink>
             {props.isLogin ? (
               <>
                 <NextLink href="/dashboard" passHref>

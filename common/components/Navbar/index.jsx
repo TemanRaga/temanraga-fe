@@ -48,6 +48,16 @@ const Navbar = () => {
               Aktivitas
             </Link>
           </NextLink>
+          <NextLink href="/tips" passHref>
+            <Link
+              w="full"
+              p="4"
+              fontWeight="semibold"
+              style={{ textDecoration: "none" }}
+            >
+              Tips
+            </Link>
+          </NextLink>
           {isLogin ? (
             <>
               <NextLink href="/dashboard" passHref>
