@@ -102,6 +102,7 @@ function Login(props) {
   };
 
   useEffect(() => {
+    if (!token) Router.push("/");
     fetch(`${serverEnv}/api/v1/profiles`, {
       method: "GET",
       headers: {
@@ -111,7 +112,8 @@ function Login(props) {
       .then((res) => res.json())
       .then((data) => {
         setData(data.data.user);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
