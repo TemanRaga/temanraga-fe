@@ -9,19 +9,82 @@ import {
   Text,
   HStack,
   Divider,
+  useToast,
+  Link
 } from "@chakra-ui/react";
-import React from "react";
-import { Icon } from "@iconify/react";
-
-function AlternateLogin() {
-  return (
-    <Flex borderRadius={"4px"} border="1px solid #C0C0C0" py="9px" px="45px">
-      <Icon icon="flat-color-icons:google" />
-    </Flex>
-  );
-}
+import React, { useState } from "react";
+import { OAuthButton } from "../../common/components";
+import { localEnv, serverEnv } from "../../common/constant/env";
+import Router from "next/router";
+import Cookies from 'js-cookie';
 
 function Login() {
+
+  // States
+  const [clientData, setClientData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
+
+  // Handler
+  const handleLogin = () => {
+    fetch(`${localEnv}/api/v1/auth/login/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(clientData),
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          toast({
+            title: `${res.statusText}`,
+            description: "Failed to login your account",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+          setIsLoading(false);
+        } else {
+          setTimeout(() => {
+            toast({
+              title: "Login Success",
+              description: `You have been sucessfully logged in`,
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          }, 500);
+
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
+
+          setTimeout(() => {
+            return res.json().then((data) => {
+              Cookies.set('refresh-temanraga', data.tokens.refresh, { expires: 365 });
+              Cookies.set('access-temanraga', data.tokens.access, { expires: 365 });
+              Router.push("/");
+            }).catch((err) => {
+              console.log(err);
+            })
+          }, 1500);
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: "Failed to login with that credentials",
+          description: "Please try again later",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        setIsLoading(false);
+      });
+  };
+
   return (
     <Flex
       w="full"
@@ -39,19 +102,29 @@ function Login() {
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Email
           </FormLabel>
-          <Input type="email" mb="23px" />
-          <FormLabel color="#2F2F2F" fontWeight={500}>
+          <Input type="email" mb="23px" onChange={(e) => {
+            setClientData({
+              ...clientData,
+              email: e.target.value,
+            });
+          }} />
+          <FormLabel color="#2F2F2F" fontWeight={500} >
             Password
           </FormLabel>
-          <Input type="password" mb="23px" />
-          <Button colorScheme={"blue"} w="full" mb="23px">
+          <Input type="password" mb="23px" onChange={(e) => {
+            setClientData({
+              ...clientData,
+              password: e.target.value,
+            });
+          }} />
+          <Button colorScheme={"blue"} w="full" mb="23px" onClick={handleLogin} type='submit'>
             Masuk
           </Button>
         </FormControl>
         <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Text as="span" color="blue.600">
+          <Link href='/register' color="blue.600">
             Daftar{" "}
-          </Text>
+          </Link>
           disini apabila belum memiliki akun
         </Text>
         <HStack w="full" pb="23px">
@@ -61,11 +134,7 @@ function Login() {
           </Text>
           <Divider />
         </HStack>
-        <HStack>
-          <AlternateLogin />
-          <AlternateLogin />
-          <AlternateLogin />
-        </HStack>
+        <OAuthButton />
       </VStack>
     </Flex>
   );
