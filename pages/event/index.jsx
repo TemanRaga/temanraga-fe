@@ -80,22 +80,7 @@ export default function Event() {
             .toLowerCase()
             .includes(filterState.location.toLocaleLowerCase())
       );
-      setShowData(filteredData);
-    } else if (filterState.activity !== "" && useGeolocation) {
-      setFilterText({
-        ...filterText,
-        location: `lokasi terdekatmu`,
-        activity: `Hasil pencarian dari "${filterState.activity}"`,
-      });
-
-      let filteredData = data.filter((ctx) =>
-        ctx.name
-          .toLowerCase()
-          .includes(filterState.activity.toLocaleLowerCase())
-      );
-
-      setShowData(filteredData);
-    } else if (filterState.activity !== "" && !useGeolocation) {
+    }  else if (filterState.activity !== "") {
       setFilterText({
         ...filterText,
         location: `semua lokasi`,
@@ -107,11 +92,10 @@ export default function Event() {
           .toLowerCase()
           .includes(filterState.activity.toLocaleLowerCase())
       );
-
-      setShowData(filteredData);
     } else if (filterState.location !== "") {
       setFilterText({
         ...filterText,
+        activity: `Semua aktivitas`,
         location: `${filterState.location}`,
       });
 
@@ -120,15 +104,7 @@ export default function Event() {
           .toLowerCase()
           .includes(filterState.location.toLocaleLowerCase())
       );
-      setShowData(filteredData);
-    } else if (useGeolocation) {
-      setFilterText({
-        ...filterText,
-        activity: `Semua aktivitas`,
-        location: `lokasi terdekatmu`,
-      });
-      setShowData(data);
-    } else {
+    }else {
       setFilterText({
         ...filterText,
         activity: `Semua aktivitas`,
