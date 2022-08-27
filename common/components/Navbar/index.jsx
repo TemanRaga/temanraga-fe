@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
+import Router from "next/router";
 import DropdownButton from "./dropdownButton";
 import Dropdown from "./dropdown";
 import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
@@ -14,7 +15,6 @@ const Navbar = () => {
     const token = Cookies.get("access-temanraga");
 
     const checkLogin = token ? true : false;
-
     setIsLogin(checkLogin);
   }, []);
 
@@ -60,17 +60,30 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </NextLink>
-              <Button px="10" colorScheme="red" bg="red.600">
-                <NextLink href="/login" passHref>
-                  <Link style={{ textDecoration: "none" }}>Keluar</Link>
-                </NextLink>
+              <Button
+                px="10"
+                colorScheme="red"
+                bg="red.600"
+                onClick={() => {
+                  Cookies.remove("access-temanraga");
+                  Cookies.remove("refresh-temanraga");
+                  window.location.replace("/")
+                }}
+              >
+                Keluar
               </Button>
             </>
           ) : (
-            <Button px="10" colorScheme="blue" bg="blue.600">
-              <NextLink href="/login" passHref>
-                <Link style={{ textDecoration: "none" }}>Masuk</Link>
-              </NextLink>
+            <Button
+              px="10"
+              colorScheme="blue"
+              bg="blue.600"
+              onClick={() => {
+                console.log("Mantap Jiwah");
+                window.location.replace("/login")
+              }}
+            >
+              Masuk
             </Button>
           )}
         </HStack>
