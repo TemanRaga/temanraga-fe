@@ -15,6 +15,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Card } from "../../common/components";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import axios from "axios";
+import Router from "next/router";
 
 export default function Event() {
   const [lat, setLat] = useState(null);
@@ -207,6 +208,9 @@ export default function Event() {
                   location={ctx.location}
                   picture={ctx.image}
                   key={idx}
+                  onClick={()=>{
+                    Router.push(`/event/${ctx.id}`)
+                  }}
                 />
               ))}
             </Flex>

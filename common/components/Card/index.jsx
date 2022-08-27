@@ -10,7 +10,7 @@ function Gender(props) {
   );
 }
 
-function Card({ name, gender, location, creator, size, date, time, picture }) {
+function Card({ name, gender, location, creator, size, date, time, picture, onClick}) {
   return (
     <Box
       border="1px solid #C0C0C0"
@@ -19,6 +19,7 @@ function Card({ name, gender, location, creator, size, date, time, picture }) {
       h={{}}
       fontSize="12px"
       cursor="pointer"
+      onClick={onClick}
     >
       <Image
         src={picture}
@@ -71,6 +72,7 @@ Card.defaultProps = {
   date: "0 January 2022",
   time: "00:00 - 00:00",
   isOfficial: true,
+  onClick : ()=>{},
   gender: "A",
   picture:
     "https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300",
