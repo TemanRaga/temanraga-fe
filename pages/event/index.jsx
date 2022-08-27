@@ -115,7 +115,7 @@ export default function Event() {
     // Filtering by gender
     filteredData = filteredData.filter((ctx) => {
       switch (filterState.gender) {
-        case 2:
+        case "2":
           return true;
         default:
           return ctx.gender == filterState.gender;
