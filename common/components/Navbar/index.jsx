@@ -5,7 +5,7 @@ import Dropdown from "./dropdown";
 import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
 
 const Navbar = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const { isOpen, onToggle } = useDisclosure();
 
   return (
