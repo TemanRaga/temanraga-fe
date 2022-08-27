@@ -12,7 +12,7 @@ import { Card } from "../common/components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import React, { useEffect, useState } from "react";
-import { localEnv } from "../common/constant/env";
+import { localEnv, serverEnv } from "../common/constant/env";
 import Router from "next/router";
 
 function Kelebihan() {
@@ -32,7 +32,7 @@ export default function Home() {
   const [activites, setActivites] = useState();
 
   useEffect(() => {
-    fetch(`${localEnv}/api/v1/events/`, {
+    fetch(`${serverEnv}/api/v1/events/`, {
       method: "GET",
     })
       .then((res) => {
