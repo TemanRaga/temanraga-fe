@@ -8,11 +8,10 @@ import {
   TableContainer,
   Flex,
   Button,
-  Link
+  Link,
 } from "@chakra-ui/react";
 
 const CreatedTable = ({ data }) => {
-
   const handleDelete = (id) => {
     fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "DELETE",
@@ -47,38 +46,43 @@ const CreatedTable = ({ data }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data && data.map((ctx, idx) => (
-            <Tr key={ctx.name}>
-              <Td>{idx + 1}</Td>
-              <Td>{ctx.name}</Td>
-              <Td>{ctx.date}, {ctx.start}</Td>
-              <Td>{ctx.date}, {ctx.finish}</Td>
-              <Td textAlign="center" isNumeric>
-                {ctx.num_participants}
-              </Td>
-              <Td textAlign="center" isNumeric>
-                {ctx.max_participants}
-              </Td>
-              <Td>
-                <Flex gap="4" justifyContent="center">
-                  <Link href={`/event/${ctx.id}`}>
-                    <Button colorScheme="blue" bg="blue.600">
-                      Detail
-                    </Button>
-                  </Link>
+          {data &&
+            data.map((ctx, idx) => (
+              <Tr key={ctx.name}>
+                <Td>{idx + 1}</Td>
+                <Td>{ctx.name}</Td>
+                <Td>
+                  {ctx.date}, {ctx.start}
+                </Td>
+                <Td>
+                  {ctx.date}, {ctx.finish}
+                </Td>
+                <Td textAlign="center" isNumeric>
+                  {ctx.num_participants}
+                </Td>
+                <Td textAlign="center" isNumeric>
+                  {ctx.max_participants}
+                </Td>
+                <Td>
+                  <Flex gap="4" justifyContent="center">
+                    <Link href={`/event/${ctx.id}`}>
+                      <Button colorScheme="blue" bg="blue.600">
+                        Detail
+                      </Button>
+                    </Link>
 
-                  <Button
-                    colorScheme="red"
-                    borderColor="red.600"
-                    variant="outline"
-                    onClick={() => handleDelete(ctx.id)}
-                  >
-                    Hapus
-                  </Button>
-                </Flex>
-              </Td>
-            </Tr>
-          ))}
+                    <Button
+                      colorScheme="red"
+                      borderColor="red.600"
+                      variant="outline"
+                      onClick={() => handleDelete(ctx.id)}
+                    >
+                      Hapus
+                    </Button>
+                  </Flex>
+                </Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

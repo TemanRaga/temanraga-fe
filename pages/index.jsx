@@ -105,27 +105,30 @@ export default function Home() {
           Aktivitas Terpopuler
         </Heading>
         <Flex
-          gap={{ base: '60px', lg: '120px' }}
+          gap={{ base: "60px", lg: "120px" }}
           justify={"center"}
           w={{ base: "auto", lg: "full" }}
           flexDirection={{ base: "column", lg: "row" }}
         >
-          {activites && activites.slice(0, 3).map((ctx, idx) => (
-            <Card
-              name={ctx.name}
-              creator={ctx.created_by.name}
-              location={ctx.location}
-              date={ctx.date}
-              time={ctx.start + " - " + ctx.finish}
-              participant={ctx.num_participants + " / " + ctx.max_participants}
-              picture={ctx.image}
-              key={idx}
-              gender={ctx.gender}
-              onClick={() => {
-                Router.push(`/event/${ctx.id}`)
-              }}
-            />
-          ))}
+          {activites &&
+            activites.slice(0, 3).map((ctx, idx) => (
+              <Card
+                name={ctx.name}
+                creator={ctx.created_by.name}
+                location={ctx.location}
+                date={ctx.date}
+                time={ctx.start + " - " + ctx.finish}
+                participant={
+                  ctx.num_participants + " / " + ctx.max_participants
+                }
+                picture={ctx.image}
+                key={idx}
+                gender={ctx.gender}
+                onClick={() => {
+                  Router.push(`/event/${ctx.id}`);
+                }}
+              />
+            ))}
         </Flex>
       </VStack>
     </>

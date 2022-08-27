@@ -44,19 +44,17 @@ function Login(props) {
       .then(async (res) => {
         if (res.status !== 201) {
           console.log(res);
-          return res
-            .json()
-            .then((data) => {
-              console.log(data);
-              toast({
-                title: `${res.statusText}`,
-                description: `${data.password[0]}`,
-                status: "error",
-                duration: 4000,
-                isClosable: true,
-              });
-              setIsLoading(false);
-            })
+          return res.json().then((data) => {
+            console.log(data);
+            toast({
+              title: `${res.statusText}`,
+              description: `${data.password[0]}`,
+              status: "error",
+              duration: 4000,
+              isClosable: true,
+            });
+            setIsLoading(false);
+          });
         } else {
           setTimeout(() => {
             toast({

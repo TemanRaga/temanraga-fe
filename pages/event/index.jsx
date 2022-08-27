@@ -10,6 +10,8 @@ import {
   Spacer,
   Box,
   Checkbox,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Card } from "../../common/components";
@@ -28,7 +30,7 @@ export default function Event() {
   const [filterState, setFilterState] = useState({
     location: "",
     activity: "",
-    gender: 2,
+    gender: "2",
   });
 
   const [activitySearchText, setActivitySearchText] =
@@ -58,6 +60,8 @@ export default function Event() {
   };
 
   const handleFilter = () => {
+    let filteredData = data;
+
     if (filterState.activity !== "" && filterState.location !== "") {
       setFilterText({
         ...filterText,
@@ -65,7 +69,7 @@ export default function Event() {
         location: `lokasi terdekatmu`,
       });
 
-      let filteredData = data.filter(
+      filteredData = data.filter(
         (ctx) =>
           ctx.name
             .toLowerCase()
@@ -81,7 +85,7 @@ export default function Event() {
         activity: `Hasil pencarian dari "${filterState.activity}"`,
       });
 
-      let filteredData = data.filter((ctx) =>
+      filteredData = data.filter((ctx) =>
         ctx.name
           .toLowerCase()
           .includes(filterState.activity.toLocaleLowerCase())
@@ -94,7 +98,7 @@ export default function Event() {
         location: `lokasi terdekatmu`,
       });
 
-      let filteredData = data.filter((ctx) =>
+      filteredData = data.filter((ctx) =>
         ctx.location
           .toLowerCase()
           .includes(filterState.location.toLocaleLowerCase())
@@ -106,8 +110,19 @@ export default function Event() {
         activity: `Semua aktivitas`,
         location: `semua lokasi`,
       });
-      setShowData(data);
     }
+
+    // Filtering by gender
+    filteredData = filteredData.filter((ctx) => {
+      switch (filterState.gender) {
+        case 2:
+          return true;
+        default:
+          return ctx.gender == filterState.gender;
+      }
+    });
+
+    setShowData(filteredData);
   };
 
   const handleGetLocation = () => {
@@ -186,9 +201,21 @@ export default function Event() {
             <Text fontSize="lg" mb="1%" fontWeight="medium">
               Gender
             </Text>
-            <Checkbox defaultChecked>Semua Gender</Checkbox>
-            <Checkbox defaultChecked>Khusus laki - laki</Checkbox>
-            <Checkbox defaultChecked>Khusus Perempuan</Checkbox>
+            <RadioGroup
+              defaultValue="2"
+              onChange={(val) => {
+                setFilterState({
+                  ...filterState,
+                  gender: val,
+                });
+              }}
+            >
+              <Stack>
+                <Radio value="2">Semua Gender</Radio>
+                <Radio value="0">Laki - Laki</Radio>
+                <Radio value="1">Perempuan</Radio>
+              </Stack>
+            </RadioGroup>
           </Flex>
 
           <Flex width="8%" ml="10px">
@@ -208,7 +235,9 @@ export default function Event() {
                   location={ctx.location}
                   date={ctx.date}
                   time={ctx.start + " - " + ctx.finish}
-                  participant={ctx.num_participants + " / " + ctx.max_participants}
+                  participant={
+                    ctx.num_participants + " / " + ctx.max_participants
+                  }
                   picture={ctx.image}
                   key={idx}
                   gender={ctx.gender}

@@ -77,7 +77,7 @@ function Login() {
                 Cookies.set("name-user", data.name, { expires: 365 });
 
                 setTimeout(() => {
-                  window.location.replace("/")
+                  window.location.replace("/");
                 }, 1500);
               })
               .catch((err) => {

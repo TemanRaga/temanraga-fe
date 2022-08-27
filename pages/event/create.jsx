@@ -21,7 +21,6 @@ import Router from "next/router";
 import Cookies from "js-cookie";
 
 function CreateEvent() {
-  
   const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const toast = useToast();
   const nowDate = new Date();
@@ -69,7 +68,7 @@ function CreateEvent() {
         duration: 4000,
         isClosable: true,
       });
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       return;
     } else if (startDate <= minimumDate) {
       toast({
@@ -80,7 +79,7 @@ function CreateEvent() {
         duration: 4000,
         isClosable: true,
       });
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       return;
     } else if (clientData.start >= clientData.finish) {
       toast({
@@ -91,7 +90,7 @@ function CreateEvent() {
         duration: 4000,
         isClosable: true,
       });
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       return;
     } else if (
       !(
@@ -112,11 +111,11 @@ function CreateEvent() {
         duration: 4000,
         isClosable: true,
       });
-      setIsSubmitting(false)
+      setIsSubmitting(false);
       return;
     }
 
-    for (let key in clientData ) {
+    for (let key in clientData) {
       postData.append(key, clientData[key]);
     }
 
@@ -136,7 +135,7 @@ function CreateEvent() {
             duration: 4000,
             isClosable: true,
           });
-          setIsSubmitting(false)
+          setIsSubmitting(false);
         } else {
           setTimeout(() => {
             toast({
@@ -147,7 +146,7 @@ function CreateEvent() {
               isClosable: true,
             });
           }, 500);
-          setIsSubmitting(false)
+          setIsSubmitting(false);
           setTimeout(() => {
             Router.push("/dashboard");
           }, 1500);
@@ -161,7 +160,7 @@ function CreateEvent() {
           duration: 2000,
           isClosable: true,
         });
-        setIsSubmitting(false)
+        setIsSubmitting(false);
       });
   };
 
@@ -362,7 +361,7 @@ function CreateEvent() {
               Buat Aktivitas
             </Button>
           </Flex>
-          {clientData.image && (<p>{clientData.image.name}</p>)}
+          {clientData.image && <p>{clientData.image.name}</p>}
         </FormControl>
       </VStack>
     </Flex>

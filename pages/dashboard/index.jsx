@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Flex, Stack, Text, Button, VStack, HStack, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Stack,
+  Text,
+  Button,
+  VStack,
+  HStack,
+  Link,
+} from "@chakra-ui/react";
 import ProfileText from "./_component/ProfileText";
 import IconText from "./_component/IconText";
 import CreatedTable from "./_component/CreatedTable";
@@ -9,7 +18,6 @@ import FollowedTable from "./_component/FollowedTable";
 import { Card } from "../../common/components";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import Cookies from "js-cookie";
-
 
 export default function Dashboard() {
   const router = useRouter();
@@ -21,11 +29,11 @@ export default function Dashboard() {
       name: "",
       email: "",
       gender: 0,
-      address: ""
+      address: "",
     },
     event_soon: [],
     event_created: [],
-    event_done: []
+    event_done: [],
   });
 
   useEffect(() => {
@@ -45,7 +53,7 @@ export default function Dashboard() {
       .catch((err) => {
         console.log(err);
       });
-  }, [])
+  }, []);
 
   console.log(userData);
 
@@ -83,13 +91,13 @@ export default function Dashboard() {
           >
             <ProfileText title="Nama" text={userData.user.name} />
             <ProfileText title="Email" text={userData.user.email} />
-            <ProfileText title="Jenis Kelamin" text={userData.user.gender ? 'Perempuan' : 'Laki-laki'} />
             <ProfileText
-              title="Alamat"
-              text={userData.user.address}
+              title="Jenis Kelamin"
+              text={userData.user.gender ? "Perempuan" : "Laki-laki"}
             />
-            <Link href='/dashboard/editprofile' textAlign={'center'} mt='6'>
-              <Button colorScheme={'blue'}>Edit Profil</Button>
+            <ProfileText title="Alamat" text={userData.user.address} />
+            <Link href="/dashboard/editprofile" textAlign={"center"} mt="6">
+              <Button colorScheme={"blue"}>Edit Profil</Button>
             </Link>
           </Flex>
           <Flex
@@ -106,19 +114,31 @@ export default function Dashboard() {
               <>
                 <Text fontWeight="semibold">Aktivitas terdekat</Text>
                 <Text fontSize="28" fontWeight="semibold" mb="4">
-                  {userData.event_soon.length != 0 && userData.event_soon[0].name}
+                  {userData.event_soon.length != 0 &&
+                    userData.event_soon[0].name}
                 </Text>
                 <IconText
                   icon="ci:location"
-                  text={userData.event_soon.length != 0 && userData.event_soon[0].location}
+                  text={
+                    userData.event_soon.length != 0 &&
+                    userData.event_soon[0].location
+                  }
                 />
                 <IconText
                   icon="ic:baseline-date-range"
-                  text={userData.event_soon.length != 0 && userData.event_soon[0].date}
+                  text={
+                    userData.event_soon.length != 0 &&
+                    userData.event_soon[0].date
+                  }
                 />
                 <IconText
                   icon="akar-icons:clock"
-                  text={userData.event_soon.length != 0 && userData.event_soon[0].start + " - " + userData.event_soon[0].finish}
+                  text={
+                    userData.event_soon.length != 0 &&
+                    userData.event_soon[0].start +
+                      " - " +
+                      userData.event_soon[0].finish
+                  }
                 />
               </>
             ) : (
@@ -150,7 +170,9 @@ export default function Dashboard() {
                   location={ctx.location}
                   date={ctx.date}
                   time={ctx.start + " - " + ctx.finish}
-                  participant={ctx.num_participants + " / " + ctx.max_participants}
+                  participant={
+                    ctx.num_participants + " / " + ctx.max_participants
+                  }
                   picture={ctx.image}
                   key={idx}
                   gender={ctx.gender}
@@ -165,11 +187,11 @@ export default function Dashboard() {
         {hasCreateActivity ? (
           <Box>
             <HStack mb="8">
-              <Text fontSize="24px" fontWeight="semibold" mr='4'>
+              <Text fontSize="24px" fontWeight="semibold" mr="4">
                 Aktivitas yang telah dibuat
               </Text>
-              <Link href='/event/create'>
-                <Button colorScheme={'blue'}>Buat Aktivitas</Button>
+              <Link href="/event/create">
+                <Button colorScheme={"blue"}>Buat Aktivitas</Button>
               </Link>
             </HStack>
             <CreatedTable data={userData.event_created} />
