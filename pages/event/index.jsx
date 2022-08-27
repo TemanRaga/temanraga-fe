@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Stack,
   Container,
@@ -10,14 +11,59 @@ import {
   Box,
   Checkbox,
 } from "@chakra-ui/react";
-
 import { Card } from "../../common/components";
+import {
+  localEnv,
+  serverEnv
+} from "../../common/constant/env"
+import axios from "axios";
 
 export default function Event() {
 
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
+
+
+  // States
+  const [data, setData] = useState([])
+  const [filterState, setFilterState] = useState({
+    location : "",
+    
+  })
+
+  // Handler
+  const handleFetchData = ()=>{
+    let config = {
+      url : `${serverEnv}/api/v1/events/`,
+      method : "GET"
+    }
+    axios(config).then((res)=>{
+      let datas = res.data
+      let list  = datas.data
+      setData(list)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
+  const handleFilterDataByEvent = ()=>{
+    // TODO
+  }
+
+  const handleFilterDataByLocation = ()=>{
+
+  }
+
+  const handleFilterDataByGender =  ()=>{
+
+  }
+
+  // UseEffect
+  useEffect(()=>{
+    handleFetchData()
+  }, [])
+
 
   useEffect(() => {
     const getLocation = () => {
@@ -37,6 +83,7 @@ export default function Event() {
     getLocation();
   }, [])
 
+
   return (
     <Flex flexDirection="column">
       <Flex flexDirection="column" p="0px">
@@ -47,7 +94,7 @@ export default function Event() {
           <Input placeholder="Cari Aktivitas" />
         </Flex>
 
-        <Flex flexDirection="row" px="8%">
+        <Flex flexDirection="row" px="8%" mb="10%">
           <Flex width="13%" flexDirection="column">
             <Text fontSize="xl" mb="3%" fontWeight="semibold">
               Filter
