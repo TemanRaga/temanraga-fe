@@ -22,6 +22,7 @@ const DropdownButton = (props) => {
     bars.push(
       <Box
         as={motion.div}
+        key={i}
         custom={i}
         layout
         variants={hamburgerVariants}
