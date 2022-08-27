@@ -13,10 +13,10 @@ import {
   Stack,
   Radio,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import Router from "next/router";
 import React, { useState } from "react";
-import { Icon } from "@iconify/react";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import { OAuthButton } from "../../common/components";
 
@@ -157,14 +157,15 @@ function Login(props) {
             w="full"
             mb="23px"
             onClick={handleSubmit}
+            type='submit'
           >
             Daftar
           </Button>
         </FormControl>
         <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Text as="span" color="blue.600">
+          <Link href='/login' color="blue.600">
             Masuk{" "}
-          </Text>
+          </Link>
           disini apabila sudah memiliki akun
         </Text>
         <HStack w="full" pb="23px">
