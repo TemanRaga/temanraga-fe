@@ -34,6 +34,7 @@ function Login(props) {
 
   // Handler
   const handleSubmit = () => {
+    setIsLoading(true);
     fetch(`${serverEnv}/api/v1/auth/register/`, {
       method: "POST",
       headers: {
@@ -45,7 +46,7 @@ function Login(props) {
         if (res.status !== 201) {
           toast({
             title: `${res.statusText}`,
-            description: "Failed creating your account",
+            description: "Gagal untuk membuat akun",
             status: "error",
             duration: 4000,
             isClosable: true,
@@ -54,8 +55,8 @@ function Login(props) {
         } else {
           setTimeout(() => {
             toast({
-              title: "Register Success",
-              description: `Your account have been created`,
+              title: "Register berhasil",
+              description: `Akunmu berhasil dibuat`,
               status: "success",
               duration: 2000,
               isClosable: true,
@@ -73,8 +74,8 @@ function Login(props) {
       })
       .catch((err) => {
         toast({
-          title: "Failed creating account",
-          description: "Please try again later",
+          title: "Gagal",
+          description: "Coba lagi di lain waktu",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -84,8 +85,14 @@ function Login(props) {
   };
 
   return (
-    <Flex w="full" bg="blue.600" justify={"center"} align="center" py="5%">
-      <VStack bg="white" borderRadius={"12px"} p="51px" align={"flex-start"}>
+    <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
+      <VStack
+        bg="white"
+        borderRadius={"12px"}
+        w={{ base: "90%", md: "600px" }}
+        p="51px"
+        align={"flex-start"}
+      >
         <Heading fontSize={"24px"} mb="23px">
           Daftar Akun
         </Heading>
@@ -153,6 +160,7 @@ function Login(props) {
             </Stack>
           </RadioGroup>
           <Button
+            isLoading={isLoading}
             colorScheme={"blue"}
             w="full"
             mb="23px"

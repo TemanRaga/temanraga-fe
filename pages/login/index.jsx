@@ -14,8 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { OAuthButton } from "../../common/components";
-import { localEnv, serverEnv } from "../../common/constant/env";
-import Router from "next/router";
+import { serverEnv } from "../../common/constant/env";
 import Cookies from "js-cookie";
 
 function Login() {
@@ -29,6 +28,7 @@ function Login() {
 
   // Handler
   const handleLogin = () => {
+    setIsLoading(true);
     fetch(`${serverEnv}/api/v1/auth/login/`, {
       method: "POST",
       headers: {
@@ -40,7 +40,7 @@ function Login() {
         if (res.status !== 200) {
           toast({
             title: `${res.statusText}`,
-            description: "Failed to login your account",
+            description: "Gagal untuk masuk",
             status: "error",
             duration: 4000,
             isClosable: true,
@@ -50,7 +50,7 @@ function Login() {
           setTimeout(() => {
             toast({
               title: "Login Success",
-              description: `You have been sucessfully logged in`,
+              description: `Kamu telah berhasil untuk masuk`,
               status: "success",
               duration: 2000,
               isClosable: true,
@@ -77,7 +77,7 @@ function Login() {
                 Cookies.set("name-user", data.name, { expires: 365 });
 
                 setTimeout(() => {
-                  window.location.replace("/")
+                  window.location.replace("/");
                 }, 1500);
               })
               .catch((err) => {
@@ -88,8 +88,8 @@ function Login() {
       })
       .catch((err) => {
         toast({
-          title: "Failed to login with that credentials",
-          description: "Please try again later",
+          title: "Gagal untuk masuk",
+          description: "Coba lagi di lain waktu",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -107,7 +107,13 @@ function Login() {
       align="center"
       py="5%"
     >
-      <VStack bg="white" borderRadius={"12px"} p="51px" align={"flex-start"}>
+      <VStack
+        bg="white"
+        borderRadius={"12px"}
+        w={{ base: "90%", md: "600px" }}
+        p="51px"
+        align={"flex-start"}
+      >
         <Heading fontSize={"24px"} mb="23px">
           Masuk
         </Heading>
@@ -139,6 +145,7 @@ function Login() {
             }}
           />
           <Button
+            isLoading={isLoading}
             colorScheme={"blue"}
             w="full"
             mb="23px"
