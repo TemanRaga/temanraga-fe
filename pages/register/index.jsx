@@ -14,9 +14,11 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
+import Router from "next/router";
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { localEnv, serverEnv } from "../../common/constant/env";
+import { OAuthButton } from "../../common/components";
 
 function Login(props) {
   // States
@@ -27,19 +29,58 @@ function Login(props) {
     gender: 0,
     address: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   // Handler
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    fetch(`${localEnv}/api/v1/auth/register/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(async (res) => {
+        if (res.status !== 201) {
+          toast({
+            title: `${res.statusText}`,
+            description: "Failed creating your account",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+          setIsLoading(false);
+        } else {
+          setTimeout(() => {
+            toast({
+              title: "Register Success",
+              description: `Your account have been created`,
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          }, 500);
 
-  const handleOnDevelopment = () => {
-    toast({
-      title: "On Development",
-      description: "These feature is on development, please try again soon ..",
-      status: "info",
-      duration: 2000,
-      isClosable: true,
-    });
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
+
+          setTimeout(() => {
+            Router.push("/login");
+          }, 1500);
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: "Failed creating account",
+          description: "Please try again later",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -56,8 +97,8 @@ function Login(props) {
             mb="23px"
             onChange={(e) => {
               setData({
-                name: e.target.value,
                 ...data,
+                name: e.target.value,
               });
             }}
           />
@@ -69,8 +110,8 @@ function Login(props) {
             mb="23px"
             onChange={(e) => {
               setData({
-                email: e.target.value,
                 ...data,
+                email: e.target.value,
               });
             }}
           />
@@ -81,8 +122,8 @@ function Login(props) {
             mb="23px"
             onChange={(e) => {
               setData({
-                password: e.target.value,
                 ...data,
+                password: e.target.value,
               });
             }}
           />
@@ -93,8 +134,8 @@ function Login(props) {
             mb="23px"
             onChange={(e) => {
               setData({
-                address: e.target.value,
                 ...data,
+                address: e.target.value,
               });
             }}
           />
@@ -111,7 +152,12 @@ function Login(props) {
               <Radio value="1">Perempuan</Radio>
             </Stack>
           </RadioGroup>
-          <Button colorScheme={"blue"} w="full" mb="23px">
+          <Button
+            colorScheme={"blue"}
+            w="full"
+            mb="23px"
+            onClick={handleSubmit}
+          >
             Daftar
           </Button>
         </FormControl>
@@ -128,16 +174,7 @@ function Login(props) {
           </Text>
           <Divider />
         </HStack>
-        <HStack>
-          <Flex
-            borderRadius={"4px"}
-            border="1px solid #C0C0C0"
-            py="9px"
-            px="45px"
-          >
-            <Icon icon="flat-color-icons:google" />
-          </Flex>
-        </HStack>
+        <OAuthButton />
       </VStack>
     </Flex>
   );

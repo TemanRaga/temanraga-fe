@@ -62,8 +62,8 @@ const OAuthButtonGroup = () => {
   const handleClick = (name) => {
     toast({
       title: "Under Development",
-      description: `please login or registered with form above`,
-      status: "info",
+      description: `Please login or registered with form above`,
+      status: "warning",
       duration: 4000,
       isClosable: true,
     });
