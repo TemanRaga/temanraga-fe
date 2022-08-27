@@ -9,7 +9,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { localEnv, serverEnv } from "../../common/constant/env";
+import Head from "next/head";
+import { serverEnv } from "../../common/constant/env";
 import Router from "next/router";
 import Cookies from "js-cookie";
 import urlSplitter from "../../common/helper/urlSplitter";
@@ -180,111 +181,124 @@ export default function EventDetail() {
   };
 
   return (
-    <Flex mt="8px" mb="50px" flexDirection="column" px="3%">
-      <Flex>
-        <Image
-          src={image}
-          objectFit="cover"
-          alt="EventPicture"
-          width="100%"
-          height="500px"
+    <>
+      <Head>
+        <title>TemanRaga - Create Event</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Flex mt="8px" mb="50px" flexDirection="column" px="3%">
+        <Flex>
+          <Image
+            src={image}
+            objectFit="cover"
+            alt="EventPicture"
+            width="100%"
+            height="500px"
+            borderRadius="10px"
+          />
+        </Flex>
+
+        <Flex
+          p="48px"
+          boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          style={{ zIndex: "4" }}
+          width="80%"
+          margin="auto auto"
+          background="white"
+          marginTop="-150px"
+          flexDirection="column"
           borderRadius="10px"
-        />
-      </Flex>
-
-      <Flex
-        p="36px"
-        boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
-        style={{ zIndex: "4" }}
-        width="80%"
-        margin="auto auto"
-        background="white"
-        marginTop="-150px"
-        flexDirection="column"
-        borderRadius="10px"
-      >
-        <Text fontSize="xl" fontWeight="semibold" mb="8px">
-          {name}
-        </Text>
-
-        <HStack flexDirection="row" mb="20px" gap={0}>
-          <Text fontSize="lg">{creator}</Text>
-          {isVerified && (
-            <Icon icon="bi:check-circle-fill" margin="200px 200px" />
-          )}
-        </HStack>
-
-        <Text>{description}</Text>
-
-        <Flex
-          gap={{ base: "4", lg: "20" }}
-          mt="20px"
-          flexDirection={{ sm: "column", md: "column", lg: "row" }}
-          justifyContent="space-between"
         >
-          <Flex flexDirection="column" gap="4" w="100%">
-            <HStack gap={4} flexDirection="row">
-              <Icon width="24px" height="24px" icon="ci:location" />
-              <Text>{location}</Text>
-            </HStack>
+          <Text fontSize="xl" fontWeight="semibold" mb="8px">
+            {name}
+          </Text>
 
-            <HStack gap={4} flexDirection="row">
-              <Icon width="24px" height="24px" icon="ic:baseline-date-range" />
-              <Text>{date}</Text>
-            </HStack>
+          <HStack flexDirection="row" mb="20px" gap={0}>
+            <Text fontSize="lg">{creator}</Text>
+            {isVerified && (
+              <Icon icon="bi:check-circle-fill" margin="200px 200px" />
+            )}
+          </HStack>
+
+          <Text>{description}</Text>
+
+          <Flex
+            gap={{ base: "4", lg: "20" }}
+            mt="20px"
+            flexDirection={{ sm: "column", md: "column", lg: "row" }}
+            justifyContent="space-between"
+          >
+            <Flex flexDirection="column" gap="4" w="100%">
+              <HStack gap={4} flexDirection="row">
+                <Icon width="24px" height="24px" icon="ci:location" />
+                <Text>{location}</Text>
+              </HStack>
+
+              <HStack gap={4} flexDirection="row">
+                <Icon
+                  width="24px"
+                  height="24px"
+                  icon="ic:baseline-date-range"
+                />
+                <Text>{date}</Text>
+              </HStack>
+            </Flex>
+
+            <Flex flexDirection="column" gap="4" w="100%">
+              <HStack gap={4} flexDirection="row">
+                <Icon width="24px" height="24px" icon="bi:person-fill" />
+                <Text>
+                  {isNewlyJoined
+                    ? participants.length + 1
+                    : participants.length}{" "}
+                  / {maxParticipants}
+                </Text>
+              </HStack>
+
+              <HStack gap={4} flexDirection="row">
+                <Icon width="24px" height="24px" icon="akar-icons:clock" />
+                <Text>
+                  {start} : {finish}
+                </Text>
+              </HStack>
+            </Flex>
           </Flex>
 
-          <Flex flexDirection="column" gap="4" w="100%">
-            <HStack gap={4} flexDirection="row">
-              <Icon width="24px" height="24px" icon="bi:person-fill" />
-              <Text>
-                {isNewlyJoined ? participants.length + 1 : participants.length} / {maxParticipants}
-              </Text>
-            </HStack>
-
-            <HStack gap={4} flexDirection="row">
-              <Icon width="24px" height="24px" icon="akar-icons:clock" />
-              <Text>
-                {start} : {finish}
-              </Text>
-            </HStack>
-          </Flex>
-        </Flex>
-
-        <Flex
-          gap={5}
-          mt="3%"
-          flexDirection={{ sm: "column", md: "column", lg: "row" }}
-        >
-          {idUser && !isJoined && (
-            <Button
-              isLoading={isLoadingJoin}
-              colorScheme="blue"
-              bg="blue.600"
-              onClick={handleRegister}
-            >
-              Ikuti Aktivitas
-            </Button>
-          )}
-          {isOwner && (
-            <>
-              <Link href="/edit">
-                <Button colorScheme="blue" variant="outline" w="100%">
-                  Edit Aktivitas
-                </Button>
-              </Link>
+          <Flex
+            gap={5}
+            mt={(idUser && !isJoined) || isOwner ? "3%" : null}
+            flexDirection={{ sm: "column", lg: "row" }}
+          >
+            {idUser && !isJoined && (
               <Button
-                isLoading={isLoadingDelete}
-                colorScheme="red"
-                variant="outline"
-                onClick={handleDelete}
+                isLoading={isLoadingJoin}
+                colorScheme="blue"
+                bg="blue.600"
+                onClick={handleRegister}
               >
-                Hapus Aktivitas
+                Ikuti Aktivitas
               </Button>
-            </>
-          )}
+            )}
+            {isOwner && (
+              <>
+                <Link href="/edit">
+                  <Button colorScheme="blue" variant="outline" w="100%">
+                    Edit Aktivitas
+                  </Button>
+                </Link>
+                <Button
+                  isLoading={isLoadingDelete}
+                  colorScheme="red"
+                  variant="outline"
+                  onClick={handleDelete}
+                >
+                  Hapus Aktivitas
+                </Button>
+              </>
+            )}
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 }

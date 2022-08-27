@@ -12,14 +12,15 @@ import { Card } from "../common/components";
 import React, { useEffect, useState } from "react";
 import { localEnv, serverEnv } from "../common/constant/env";
 import Router from "next/router";
+import Head from "next/head";
 
-function Kelebihan() {
+function Kelebihan({ judul, deskripsi, img }) {
   return (
     <VStack border="1px solid #C0C0C0" w="300px" p="18px" borderRadius="11px">
-      <Image alt="kelebihan" src="/homepage/hero.svg" w="200px" h="200px" />
-      <Text fontWeight={600}>Aksesibilitas</Text>
+      <Image alt="kelebihan" src={img} w="200px" h="200px" />
+      <Text fontWeight={600}>{judul}</Text>
       <Text fontWeight={300} textAlign="center">
-        Semuanya dapat mengakses sistem pada paltform kami dengan mudah{" "}
+        {deskripsi}
       </Text>
     </VStack>
   );
@@ -46,6 +47,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>TemanRaga - Home</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
         <Flex
           w="80%"
@@ -78,14 +83,14 @@ export default function Home() {
           w={{ base: "auto", lg: "80%" }}
           flexDirection={{ base: "column", lg: "row" }}
         >
-          <Kelebihan />
-          <Kelebihan />
-          <Kelebihan />
+          <Kelebihan judul={'Aksesibilitas'} deskripsi='Semuanya dapat mengakses sistem pada platform kami dengan mudah ' img="/homepage/Accesibilty.svg" />
+          <Kelebihan judul={'Gratis'} deskripsi='Tanpa mengeluarkan uang kalian bisa bertemu dengan orang terdekat' img="/homepage/gratis.svg" />
+          <Kelebihan judul={'Kredibilitas'} deskripsi='Website kami dijamin aman dan diawasi oleh tim kami' img="/homepage/kredibilitas.svg" />
         </Flex>
       </VStack>
       <HStack py="5%" px="5%" justify="center">
         <Image
-          src="/homepage/hero.svg"
+          src="/homepage/cari_temanraga.svg"
           alt="cari"
           boxSize={{ base: "150px", md: "400px", lg: "600px" }}
         />
