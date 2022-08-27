@@ -160,6 +160,7 @@ function Login(props) {
             </Stack>
           </RadioGroup>
           <Button
+            bg="blue.600"
             isLoading={isLoading}
             colorScheme={"blue"}
             w="full"

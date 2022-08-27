@@ -15,6 +15,7 @@ import {
   useToast,
   Link,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import { serverEnv } from "../../common/constant/env";
@@ -28,9 +29,7 @@ function Login(props) {
     gender: 0,
     address: "",
   });
-  const [token, setToken] = useState(
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyMjE0NzA3LCJpYXQiOjE2NjE2MDk5MDcsImp0aSI6IjQxNjRlZmQyMjFkNjQxNmZiYmZlOWQ3YzZmODE1Zjk5IiwidXNlcl9pZCI6OCwiZW1haWwiOiJla2lyaWRnZWJhY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJNdWhhbW1hZCBIYXFxaSBBIGwgRmFyaXppIiwiZ2VuZGVyIjowLCJhZGRyZXNzIjoiYWFhYWFhYWFhYSIsImlzX2NvbXBsZXRlZCI6dHJ1ZSwiaXNfdmVyaWZpZWQiOmZhbHNlfQ._N8wXWibOfN_0A41PAofi_fD64eXpqaHBiwen8KXWGU"
-  );
+  const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
@@ -52,7 +51,7 @@ function Login(props) {
       return;
     }
 
-    fetch(`https://temanraga.xyz/api/v1/profiles/`, {
+    fetch(`${serverEnv}/api/v1/profiles/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +102,7 @@ function Login(props) {
   };
 
   useEffect(() => {
-    fetch("https://temanraga.xyz/api/v1/profiles", {
+    fetch(`${serverEnv}/api/v1/profiles`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
