@@ -48,7 +48,7 @@ const CreatedTable = ({ data }) => {
         </Thead>
         <Tbody>
           {data.map((ctx, idx) => (
-            <Tr>
+            <Tr key={ctx.name}>
               <Td>{idx}</Td>
               <Td>{ctx.name}</Td>
               <Td>{ctx.date}, {ctx.start}</Td>
