@@ -9,8 +9,9 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Card } from "../common/components";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import React, { useEffect, useState } from "react";
+import { localEnv, serverEnv } from "../common/constant/env";
+import Router from "next/router";
 
 function Kelebihan() {
   return (
@@ -25,6 +26,24 @@ function Kelebihan() {
 }
 
 export default function Home() {
+  const [activites, setActivites] = useState();
+
+  useEffect(() => {
+    fetch(`${serverEnv}/api/v1/events/`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setActivites(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
@@ -81,48 +100,30 @@ export default function Home() {
           <Button colorScheme={"blue"}>Cari Aktivitas</Button>
         </VStack>
       </HStack>
-      <Box px="5%" mb="5%">
+      <VStack px="5%" mb="5%">
         <Heading fontSize={"24px"} mb="40px" textAlign={"center"}>
           Aktivitas Terpopuler
         </Heading>
-        <Swiper
-          spaceBetween={50}
-          centeredSlides={true}
-          centeredSlidesBounds={true}
-          breakpoints={{
-            // when window width is >= 320px
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            // when window width is >= 480px
-            1000: {
-              slidesPerView: 2,
-              spaceBetween: 30,
-            },
-            // when window width is >= 640px
-            1440: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-          }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+        <Flex
+          gap={{ base: '60px', lg: '120px' }}
+          justify={"center"}
+          w={{ base: "auto", lg: "full" }}
+          flexDirection={{ base: "column", lg: "row" }}
         >
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-        </Swiper>
-      </Box>
+          {activites && activites.slice(0, 3).map((ctx, idx) => (
+            <Card
+              name={ctx.name}
+              description={ctx.description}
+              location={ctx.location}
+              picture={ctx.image}
+              key={idx}
+              onClick={() => {
+                Router.push(`/event/${ctx.id}`)
+              }}
+            />
+          ))}
+        </Flex>
+      </VStack>
     </>
   );
 }

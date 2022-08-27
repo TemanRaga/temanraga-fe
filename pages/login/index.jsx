@@ -29,7 +29,7 @@ function Login() {
 
   // Handler
   const handleLogin = () => {
-    fetch(`${localEnv}/api/v1/auth/login/`, {
+    fetch(`${serverEnv}/api/v1/auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,14 @@ function Login() {
                 Cookies.set("access-temanraga", data.tokens.access, {
                   expires: 365,
                 });
-                Router.push("/");
+                Cookies.set("email-user", data.email, { expires: 365 });
+                Cookies.set("id-user", data.id, { expires: 365 });
+                Cookies.set("is_verified", data.is_verified, { expires: 365 });
+                Cookies.set("name-user", data.name, { expires: 365 });
+
+                setTimeout(() => {
+                  Router.push("/");
+                }, 1500);
               })
               .catch((err) => {
                 console.log(err);

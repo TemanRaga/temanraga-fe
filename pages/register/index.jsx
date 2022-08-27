@@ -34,7 +34,7 @@ function Login(props) {
 
   // Handler
   const handleSubmit = () => {
-    fetch(`${localEnv}/api/v1/auth/register/`, {
+    fetch(`${serverEnv}/api/v1/auth/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

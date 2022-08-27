@@ -208,8 +208,8 @@ export default function Event() {
                   location={ctx.location}
                   picture={ctx.image}
                   key={idx}
-                  onClick={()=>{
-                    Router.push(`/event/${ctx.id}`)
+                  onClick={() => {
+                    Router.push(`/event/${ctx.id}`);
                   }}
                 />
               ))}
