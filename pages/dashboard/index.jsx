@@ -9,6 +9,7 @@ import {
   VStack,
   HStack,
   Link,
+  SimpleGrid
 } from "@chakra-ui/react";
 import ProfileText from "./_component/ProfileText";
 import IconText from "./_component/IconText";
@@ -136,8 +137,8 @@ export default function Dashboard() {
                   text={
                     userData.event_soon.length != 0 &&
                     userData.event_soon[0].start +
-                      " - " +
-                      userData.event_soon[0].finish
+                    " - " +
+                    userData.event_soon[0].finish
                   }
                 />
               </>
@@ -162,7 +163,7 @@ export default function Dashboard() {
             <Text fontSize="24px" fontWeight="semibold" mb="8">
               Aktivitas yang akan diikuti
             </Text>
-            <Flex>
+            <SimpleGrid minChildWidth={'350px'} spacing='40px' justifyContent={'center'}>
               {userData.event_soon.map((ctx, idx) => (
                 <Card
                   name={ctx.name}
@@ -181,7 +182,7 @@ export default function Dashboard() {
                   }}
                 />
               ))}
-            </Flex>
+            </SimpleGrid>
           </Box>
         )}
         {hasCreateActivity ? (
