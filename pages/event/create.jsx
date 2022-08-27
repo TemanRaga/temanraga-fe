@@ -22,7 +22,7 @@ import Cookies from "js-cookie";
 
 function CreateEvent() {
   
-  const [token, setToken] = useState("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYxNjE3MzMxLCJpYXQiOjE2NjE1OTkzMzEsImp0aSI6Ijk0MmVhMWI4YzAyMDQwMjViYTFlZTczY2I3YWI0YWE3IiwidXNlcl9pZCI6OCwiZW1haWwiOiJla2lyaWRnZWJhY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJNdWhhbW1hZCBIYXFxaSBBIGwgRmFyaXppIiwiZ2VuZGVyIjowLCJhZGRyZXNzIjoiYWFhYWFhYWFhYSIsImlzX2NvbXBsZXRlZCI6dHJ1ZSwiaXNfdmVyaWZpZWQiOmZhbHNlfQ.BbIbpsd9anjUnbejTjpiFb-rkkSp07WrWdtAeNg77wk");
+  const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const toast = useToast();
   const nowDate = new Date();
   const [isSubmitting, setIsSubmitting] = useState(false);
