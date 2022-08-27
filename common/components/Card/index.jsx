@@ -47,6 +47,7 @@ function Card({
     >
       <Image
         src={picture}
+        objectFit="cover"
         borderRadius={"8px 8px 0px 0px"}
         w="100%"
         h={{ lg: "140px", md: "120px", sm: "100px" }}

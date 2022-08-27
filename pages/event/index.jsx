@@ -20,6 +20,7 @@ import axios from "axios";
 import Router from "next/router";
 
 export default function Event() {
+  const [useGeolocation, setUseGeolocation] = useState(false);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
@@ -66,7 +67,7 @@ export default function Event() {
       setFilterText({
         ...filterText,
         activity: `Hasil pencarian dari "${filterState.activity}"`,
-        location: `lokasi terdekatmu`,
+        location: `${filterState.location}`,
       });
 
       filteredData = data.filter(
@@ -79,9 +80,24 @@ export default function Event() {
             .includes(filterState.location.toLocaleLowerCase())
       );
       setShowData(filteredData);
-    } else if (filterState.activity !== "") {
+    } else if (filterState.activity !== "" && useGeolocation) {
       setFilterText({
         ...filterText,
+        location: `lokasi terdekatmu`,
+        activity: `Hasil pencarian dari "${filterState.activity}"`,
+      });
+
+      let filteredData = data.filter((ctx) =>
+        ctx.name
+          .toLowerCase()
+          .includes(filterState.activity.toLocaleLowerCase())
+      );
+
+      setShowData(filteredData);
+    } else if (filterState.activity !== "" && !useGeolocation) {
+      setFilterText({
+        ...filterText,
+        location: `semua lokasi`,
         activity: `Hasil pencarian dari "${filterState.activity}"`,
       });
 
@@ -95,7 +111,7 @@ export default function Event() {
     } else if (filterState.location !== "") {
       setFilterText({
         ...filterText,
-        location: `lokasi terdekatmu`,
+        location: `${filterState.location}`,
       });
 
       filteredData = data.filter((ctx) =>
@@ -104,6 +120,13 @@ export default function Event() {
           .includes(filterState.location.toLocaleLowerCase())
       );
       setShowData(filteredData);
+    } else if (useGeolocation) {
+      setFilterText({
+        ...filterText,
+        activity: `Semua aktivitas`,
+        location: `lokasi terdekatmu`,
+      });
+      setShowData(data);
     } else {
       setFilterText({
         ...filterText,
@@ -129,6 +152,7 @@ export default function Event() {
     if (!navigator.geolocation) {
       setStatus("Geolocation is not supported by your browser");
     } else {
+      setUseGeolocation(true);
       setStatus("Locating...");
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -146,6 +170,7 @@ export default function Event() {
   // UseEffect
   useEffect(() => {
     handleFetchData();
+    handleGetLocation();
   }, []);
 
   useEffect(() => {
@@ -178,11 +203,11 @@ export default function Event() {
               }}
             />
             <Flex width="1px" background="#C0C0C0" />
-            <SearchIcon margin="auto 6px auto 11px" />
             <Input
+              ml="4"
               placeholder="Cari Lokasi"
               variant="unstyled"
-              width="20%"
+              width="30%"
               onChange={(e) => {
                 setFilterState({
                   ...filterState,
@@ -190,6 +215,7 @@ export default function Event() {
                 });
               }}
             />
+            <SearchIcon m="auto" cursor="pointer" />
           </Flex>
         </Flex>
 

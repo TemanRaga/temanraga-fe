@@ -15,10 +15,10 @@ import {
   useToast,
   Link,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import Router from "next/router";
-import React, { useState } from "react";
-import { localEnv, serverEnv } from "../../common/constant/env";
-import { OAuthButton } from "../../common/components";
+import React, { useEffect, useState } from "react";
+import { serverEnv } from "../../common/constant/env";
 
 function Login(props) {
   // States
@@ -29,37 +29,51 @@ function Login(props) {
     gender: 0,
     address: "",
   });
+  const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
   // Handler
   const handleSubmit = () => {
     setIsLoading(true);
-    fetch(`${serverEnv}/api/v1/auth/register/`, {
-      method: "POST",
+
+    if (
+      !(data.address && data.email && data.gender && data.name && data.password)
+    ) {
+      toast({
+        title: `Error`,
+        description: "Ada field yang belum diisi",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    fetch(`${serverEnv}/api/v1/profiles/`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })
       .then(async (res) => {
-        if (res.status !== 201) {
-          return res.json().then((data) => {
-            console.log(data);
-            toast({
-              title: `${res.statusText}`,
-              description: `${data.password[0]}`,
-              status: "error",
-              duration: 4000,
-              isClosable: true,
-            });
-            setIsLoading(false);
+        if (res.status !== 200) {
+          toast({
+            title: `${res.statusText}`,
+            description: "Gagal untuk mengedit profil",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
           });
+          setIsLoading(false);
         } else {
           setTimeout(() => {
             toast({
-              title: "Register berhasil",
-              description: `Akunmu berhasil dibuat`,
+              title: "Edit berhasil",
+              description: `Profilmu berhasil diedit`,
               status: "success",
               duration: 2000,
               isClosable: true,
@@ -71,13 +85,13 @@ function Login(props) {
           }, 1000);
 
           setTimeout(() => {
-            Router.push("/login");
+            Router.push("/dashboard");
           }, 1500);
         }
       })
       .catch((err) => {
         toast({
-          title: "Gagal",
+          title: "Gagal mengedit profil",
           description: "Coba lagi di lain waktu",
           status: "error",
           duration: 2000,
@@ -86,6 +100,21 @@ function Login(props) {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (!token) Router.push("/");
+    fetch(`${serverEnv}/api/v1/profiles`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.data.user);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
@@ -97,13 +126,14 @@ function Login(props) {
         align={"flex-start"}
       >
         <Heading fontSize={"24px"} mb="23px">
-          Daftar Akun
+          Edit Profil
         </Heading>
         <FormControl>
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Nama Lengkap
           </FormLabel>
           <Input
+            value={data.name}
             mb="23px"
             onChange={(e) => {
               setData({
@@ -116,6 +146,7 @@ function Login(props) {
             Email
           </FormLabel>
           <Input
+            value={data.email}
             type="email"
             mb="23px"
             onChange={(e) => {
@@ -130,6 +161,7 @@ function Login(props) {
           </FormLabel>
           <Input
             mb="23px"
+            value={data.password}
             onChange={(e) => {
               setData({
                 ...data,
@@ -142,6 +174,7 @@ function Login(props) {
           </FormLabel>
           <Input
             mb="23px"
+            value={data.address}
             onChange={(e) => {
               setData({
                 ...data,
@@ -149,7 +182,7 @@ function Login(props) {
               });
             }}
           />
-          <RadioGroup mb="23px">
+          <RadioGroup mb="23px" defaultValue={data.gender}>
             <Stack direction="row" spacing="24px">
               <Radio
                 value="0"
@@ -163,7 +196,6 @@ function Login(props) {
             </Stack>
           </RadioGroup>
           <Button
-            bg="blue.600"
             isLoading={isLoading}
             colorScheme={"blue"}
             w="full"
@@ -171,23 +203,9 @@ function Login(props) {
             onClick={handleSubmit}
             type="submit"
           >
-            Daftar
+            Edit
           </Button>
         </FormControl>
-        <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Link href="/login" color="blue.600">
-            Masuk{" "}
-          </Link>
-          disini apabila sudah memiliki akun
-        </Text>
-        <HStack w="full" pb="23px">
-          <Divider />
-          <Text whiteSpace={"nowrap"} fontWeight={400}>
-            atau login dengan
-          </Text>
-          <Divider />
-        </HStack>
-        <OAuthButton />
       </VStack>
     </Flex>
   );

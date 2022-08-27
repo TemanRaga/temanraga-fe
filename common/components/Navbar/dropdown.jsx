@@ -11,10 +11,10 @@ const Dropdown = (props) => {
 
   return (
     <AnimatePresence>
-      <Box position="absolute" bg="white" w="full">
+      <Box position="absolute" bg="white" w="full" overflow="hidden">
         <Collapse in={props.isOpen} animateOpacity>
           <VStack bg="white" textAlign="center">
-            <NextLink href="/aktivitas" passHref>
+            <NextLink href="/event" passHref>
               <Link
                 w="full"
                 p="4"
@@ -22,6 +22,16 @@ const Dropdown = (props) => {
                 style={{ textDecoration: "none" }}
               >
                 Aktivitas
+              </Link>
+            </NextLink>
+            <NextLink href="/tips" passHref>
+              <Link
+                w="full"
+                p="4"
+                fontWeight="semibold"
+                style={{ textDecoration: "none" }}
+              >
+                Tips
               </Link>
             </NextLink>
             {props.isLogin ? (
