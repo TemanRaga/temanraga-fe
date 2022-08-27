@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 
-function Aktivitas() {
+function CreateEvent() {
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="5%">
       <VStack
@@ -150,4 +150,4 @@ function Aktivitas() {
   );
 }
 
-export default Aktivitas;
+export default CreateEvent;
