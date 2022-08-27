@@ -11,7 +11,7 @@ import {
   Box,
   Checkbox,
 } from "@chakra-ui/react";
-import { SearchIcon} from '@chakra-ui/icons'
+import { SearchIcon } from "@chakra-ui/icons";
 import { Card } from "../../common/components";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import axios from "axios";
@@ -23,11 +23,16 @@ export default function Event() {
 
   // States
   const [data, setData] = useState([]);
+  const [showData, setShowData] = useState([]);
   const [filterState, setFilterState] = useState({
     location: "",
-    name: "",
-    gender: 0,
+    activity: "",
+    gender: 2,
   });
+
+  const [activitySearchText, setActivitySearchText] =
+    useState("Semua aktivitas");
+  const [locationSearchText, setLocationSearchText] = useState("semua lokasi");
   const [filterText, setFilterText] = useState({
     activity: "Semua aktivitas",
     location: "semua lokasi",
@@ -44,22 +49,64 @@ export default function Event() {
         let datas = res.data;
         let list = datas.data;
         setData(list);
+        setShowData(list);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleFilterDataByEvent = () => {
-    // TODO
-  };
+  const handleFilter = () => {
+    if (filterState.activity !== "" && filterState.location !== "") {
+      setFilterText({
+        ...filterText,
+        activity: `Hasil pencarian dari "${filterState.activity}"`,
+        location: `lokasi terdekatmu`,
+      });
 
-  const handleFilterDataByLocation = () => {
-    //TODO
-  };
+      let filteredData = data.filter(
+        (ctx) =>
+          ctx.name
+            .toLowerCase()
+            .includes(filterState.activity.toLocaleLowerCase()) &&
+          ctx.location
+            .toLowerCase()
+            .includes(filterState.location.toLocaleLowerCase())
+      );
+      setShowData(filteredData);
+    } else if (filterState.activity !== "") {
+      setFilterText({
+        ...filterText,
+        activity: `Hasil pencarian dari "${filterState.activity}"`,
+      });
 
-  const handleFilterDataByGender = () => {
-    // TODO
+      let filteredData = data.filter((ctx) =>
+        ctx.name
+          .toLowerCase()
+          .includes(filterState.activity.toLocaleLowerCase())
+      );
+
+      setShowData(filteredData);
+    } else if (filterState.location !== "") {
+      setFilterText({
+        ...filterText,
+        location: `lokasi terdekatmu`,
+      });
+
+      let filteredData = data.filter((ctx) =>
+        ctx.location
+          .toLowerCase()
+          .includes(filterState.location.toLocaleLowerCase())
+      );
+      setShowData(filteredData);
+    } else {
+      setFilterText({
+        ...filterText,
+        activity: `Semua aktivitas`,
+        location: `semua lokasi`,
+      });
+      setShowData(data);
+    }
   };
 
   const handleGetLocation = () => {
@@ -85,6 +132,10 @@ export default function Event() {
     handleFetchData();
   }, []);
 
+  useEffect(() => {
+    handleFilter();
+  }, [filterState]);
+
   return (
     <Flex flexDirection="column">
       <Flex flexDirection="column" p="0px">
@@ -99,16 +150,29 @@ export default function Event() {
             px="25px"
             py="10px"
           >
-            <Input placeholder="Cari Aktivitas" variant="unstyled" 
+            <Input
+              placeholder="Cari Aktivitas"
+              variant="unstyled"
               width="70%"
+              onChange={(e) => {
+                setFilterState({
+                  ...filterState,
+                  activity: e.target.value,
+                });
+              }}
             />
-            <Flex
-              width="1px"
-              background="#C0C0C0"
-            />
-            <SearchIcon margin="auto 6px auto 11px"/>
-            <Input placeholder="Cari Lokasi" variant="unstyled" 
+            <Flex width="1px" background="#C0C0C0" />
+            <SearchIcon margin="auto 6px auto 11px" />
+            <Input
+              placeholder="Cari Lokasi"
+              variant="unstyled"
               width="20%"
+              onChange={(e) => {
+                setFilterState({
+                  ...filterState,
+                  location: e.target.value,
+                });
+              }}
             />
           </Flex>
         </Flex>
@@ -136,12 +200,13 @@ export default function Event() {
             </Text>
 
             <Flex flexDirection="row" flexWrap="wrap" gap={10}>
-              {data.map((ctx, idx) => (
+              {showData.map((ctx, idx) => (
                 <Card
                   name={ctx.name}
                   description={ctx.description}
                   location={ctx.location}
                   picture={ctx.image}
+                  key={idx}
                 />
               ))}
             </Flex>
