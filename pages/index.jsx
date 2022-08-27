@@ -11,6 +11,9 @@ import {
 import { Card } from "../common/components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import React, { useEffect, useState } from "react";
+import { localEnv } from "../common/constant/env";
+import Router from "next/router";
 
 function Kelebihan() {
   return (
@@ -25,6 +28,26 @@ function Kelebihan() {
 }
 
 export default function Home() {
+
+  const [activites, setActivites] = useState();
+
+  useEffect(() => {
+    fetch(`${localEnv}/api/v1/events/`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setActivites(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
+
   return (
     <>
       <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
@@ -109,18 +132,20 @@ export default function Home() {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card />
-          </SwiperSlide>
+          {activites && activites.map((ctx, idx) => (
+            <SwiperSlide key={ctx.name}>
+              <Card
+                name={ctx.name}
+                description={ctx.description}
+                location={ctx.location}
+                picture={ctx.image}
+                key={idx}
+                onClick={() => {
+                  Router.push(`/event/${ctx.id}`)
+                }}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
     </>
