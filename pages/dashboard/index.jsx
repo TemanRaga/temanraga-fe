@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Flex, Stack, Text, Button, VStack } from "@chakra-ui/react";
-import { ProfileText, IconText, CreatedTable, FollowedTable } from "./_component";
+import ProfileText from "./_component/ProfileText";
+import IconText from "./_component/IconText";
+import CreatedTable from "./_component/CreatedTable";
+import FollowedTable from "./_component/FollowedTable";
 import { Card } from "../../common/components";
 
 export default function Dashboard() {
