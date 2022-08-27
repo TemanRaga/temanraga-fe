@@ -2,13 +2,7 @@ import { useState } from "react";
 import NextLink from "next/link";
 import DropdownButton from "./dropdownButton";
 import Dropdown from "./dropdown";
-import {
-  Flex,
-  HStack,
-  Link,
-  useDisclosure,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
 
 const Navbar = () => {
   const [isLogin, setIsLogin] = useState(true);

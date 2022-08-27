@@ -1,9 +1,5 @@
-import Card from './Card'
-import Navbar from './Navbar'
-import Footer from './Footer'
+import Card from "./Card";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
-export{
-    Navbar,
-    Card,
-    Footer
-}
+export { Navbar, Card, Footer };

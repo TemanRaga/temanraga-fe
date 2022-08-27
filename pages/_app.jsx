@@ -1,6 +1,6 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { Navbar, Footer } from '../components'
-import theme from '../theme'
+import { ChakraProvider } from "@chakra-ui/react";
+import { Navbar, Footer } from "../components";
+import theme from "../theme";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <Footer />
     </ChakraProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

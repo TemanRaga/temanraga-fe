@@ -47,7 +47,6 @@ const DropdownButton = (props) => {
       gap="1"
     >
       {bars}
-
     </Flex>
   );
 };
