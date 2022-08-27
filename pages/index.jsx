@@ -8,7 +8,9 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import Card from "../components/Card";
+import {
+  Card
+} from "../common/components"
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 

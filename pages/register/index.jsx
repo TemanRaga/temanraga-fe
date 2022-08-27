@@ -15,6 +15,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@iconify/react";
+import {
+  localEnv,
+  serverEnv,
+} from "../../common/constant/env"
 
 function AlternateLogin() {
   return (
@@ -25,6 +29,8 @@ function AlternateLogin() {
 }
 
 function Login() {
+
+  console.log(localEnv);
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="5%">
       <VStack bg="white" borderRadius={"12px"} p="51px" align={"flex-start"}>

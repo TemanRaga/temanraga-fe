@@ -11,7 +11,7 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 
-import { Card } from "../../components";
+import { Card } from "../../common/components";
 
 export default function Event() {
   return (

@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { Navbar, Footer } from "../components";
+import { Navbar, Footer } from "../common/components";
 import theme from "../theme";
 
 function MyApp({ Component, pageProps }) {
