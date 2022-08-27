@@ -12,77 +12,67 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import { Card } from "../../common/components";
-import {
-  localEnv,
-  serverEnv
-} from "../../common/constant/env"
+import { localEnv, serverEnv } from "../../common/constant/env";
 import axios from "axios";
 
 export default function Event() {
-
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
 
-
   // States
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [filterState, setFilterState] = useState({
-    location : "",
-    
-  })
+    location: "",
+  });
 
   // Handler
-  const handleFetchData = ()=>{
+  const handleFetchData = () => {
     let config = {
-      url : `${serverEnv}/api/v1/events/`,
-      method : "GET"
-    }
-    axios(config).then((res)=>{
-      let datas = res.data
-      let list  = datas.data
-      setData(list)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
+      url: `${serverEnv}/api/v1/events/`,
+      method: "GET",
+    };
+    axios(config)
+      .then((res) => {
+        let datas = res.data;
+        let list = datas.data;
+        setData(list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const handleFilterDataByEvent = ()=>{
+  const handleFilterDataByEvent = () => {
     // TODO
-  }
+  };
 
-  const handleFilterDataByLocation = ()=>{
+  const handleFilterDataByLocation = () => {};
 
-  }
+  const handleFilterDataByGender = () => {};
 
-  const handleFilterDataByGender =  ()=>{
-
-  }
-
-  // UseEffect
-  useEffect(()=>{
-    handleFetchData()
-  }, [])
-
-
-  useEffect(() => {
-    const getLocation = () => {
-      if (!navigator.geolocation) {
-        setStatus('Geolocation is not supported by your browser');
-      } else {
-        setStatus('Locating...');
-        navigator.geolocation.getCurrentPosition((position) => {
+  const handleGetLocation = () => {
+    if (!navigator.geolocation) {
+      setStatus("Geolocation is not supported by your browser");
+    } else {
+      setStatus("Locating...");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
           setStatus(null);
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
-        }, () => {
-          setStatus('Unable to retrieve your location');
-        });
-      }
+        },
+        () => {
+          setStatus("Unable to retrieve your location");
+        }
+      );
     }
-    getLocation();
-  }, [])
+  };
 
+  // UseEffect
+  useEffect(() => {
+    handleFetchData();
+  }, []);
 
   return (
     <Flex flexDirection="column">
@@ -117,12 +107,14 @@ export default function Event() {
             </Text>
 
             <Flex flexDirection="row" flexWrap="wrap" gap={10}>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {data.map((ctx, idx)=>(
+                <Card
+                  name={ctx.name}
+                  description={ctx.description}
+                  location={ctx.location}
+                  picture={ctx.image}
+                />
+              ))}
             </Flex>
           </Flex>
         </Flex>

@@ -10,16 +10,15 @@ import {
   HStack,
   Divider,
   useToast,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { OAuthButton } from "../../common/components";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import Router from "next/router";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function Login() {
-
   // States
   const [clientData, setClientData] = useState({
     email: "",
@@ -63,13 +62,20 @@ function Login() {
           }, 1000);
 
           setTimeout(() => {
-            return res.json().then((data) => {
-              Cookies.set('refresh-temanraga', data.tokens.refresh, { expires: 365 });
-              Cookies.set('access-temanraga', data.tokens.access, { expires: 365 });
-              Router.push("/");
-            }).catch((err) => {
-              console.log(err);
-            })
+            return res
+              .json()
+              .then((data) => {
+                Cookies.set("refresh-temanraga", data.tokens.refresh, {
+                  expires: 365,
+                });
+                Cookies.set("access-temanraga", data.tokens.access, {
+                  expires: 365,
+                });
+                Router.push("/");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }, 1500);
         }
       })
@@ -102,27 +108,41 @@ function Login() {
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Email
           </FormLabel>
-          <Input type="email" mb="23px" onChange={(e) => {
-            setClientData({
-              ...clientData,
-              email: e.target.value,
-            });
-          }} />
-          <FormLabel color="#2F2F2F" fontWeight={500} >
+          <Input
+            type="email"
+            mb="23px"
+            onChange={(e) => {
+              setClientData({
+                ...clientData,
+                email: e.target.value,
+              });
+            }}
+          />
+          <FormLabel color="#2F2F2F" fontWeight={500}>
             Password
           </FormLabel>
-          <Input type="password" mb="23px" onChange={(e) => {
-            setClientData({
-              ...clientData,
-              password: e.target.value,
-            });
-          }} />
-          <Button colorScheme={"blue"} w="full" mb="23px" onClick={handleLogin} type='submit'>
+          <Input
+            type="password"
+            mb="23px"
+            onChange={(e) => {
+              setClientData({
+                ...clientData,
+                password: e.target.value,
+              });
+            }}
+          />
+          <Button
+            colorScheme={"blue"}
+            w="full"
+            mb="23px"
+            onClick={handleLogin}
+            type="submit"
+          >
             Masuk
           </Button>
         </FormControl>
         <Text pb="23px" alignSelf={"center"} fontWeight={400}>
-          <Link href='/register' color="blue.600">
+          <Link href="/register" color="blue.600">
             Daftar{" "}
           </Link>
           disini apabila belum memiliki akun

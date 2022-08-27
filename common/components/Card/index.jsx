@@ -15,13 +15,15 @@ function Card({ name, gender, location, creator, size, date, time, picture }) {
     <Box
       border="1px solid #C0C0C0"
       borderRadius={"8px"}
-      w={{ base: "300px", md: "400px" }}
+      w={{ base: "300px", md: "280px" , sm : "220px"}}
+      h={{}}
+      fontSize="12px"
     >
-      <Image src={picture} borderRadius={"8px 8px 0px 0px"} w="100%" />
+      <Image src={picture} borderRadius={"8px 8px 0px 0px"} w="100%" h={{lg : "140px", md : "120px" ,sm:"100px"}} overflow="hidden" />
       <VStack align={"flex-start"} p="24px">
         <HStack justify={"space-between"} w="full">
           <HStack>
-            <Text fontWeight={600}>{name}</Text>
+            <Text fontWeight={600} fontSize="14px">{name}</Text>
             <Gender gender={gender} />
           </HStack>
           <HStack>
