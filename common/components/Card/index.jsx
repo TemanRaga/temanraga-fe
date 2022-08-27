@@ -15,7 +15,7 @@ function Card({
   gender,
   location,
   creator,
-  size,
+  participant,
   date,
   time,
   picture,
@@ -48,7 +48,7 @@ function Card({
           </HStack>
           <HStack>
             <Icon icon="bi:person-fill" />
-            <Text>{size}</Text>
+            <Text>{participant}</Text>
           </HStack>
         </HStack>
         <HStack>
@@ -77,7 +77,7 @@ function Card({
 Card.defaultProps = {
   name: "Event Name",
   location: "Location",
-  size: 0,
+  participant: 0,
   creator: "Creator",
   date: "0 January 2022",
   time: "00:00 - 00:00",

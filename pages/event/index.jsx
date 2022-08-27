@@ -204,8 +204,11 @@ export default function Event() {
               {showData.map((ctx, idx) => (
                 <Card
                   name={ctx.name}
-                  description={ctx.description}
+                  creator={ctx.created_by.name}
                   location={ctx.location}
+                  date={ctx.date}
+                  time={ctx.start + " - " + ctx.finish}
+                  participant={ctx.num_participants + " / " + ctx.max_participants}
                   picture={ctx.image}
                   key={idx}
                   onClick={() => {
