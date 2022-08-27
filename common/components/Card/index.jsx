@@ -3,11 +3,26 @@ import React from "react";
 import { Icon } from "@iconify/react";
 
 function Gender(props) {
-  return (
-    <Box bg="teal.600" px="5px" py="2px" borderRadius={"2px"} color="white">
-      {props.gender}
-    </Box>
-  );
+
+  if (props.gender == 0) {
+    return (
+      <Box bg="blue.600" px="5px" py="2px" borderRadius={"2px"} color="white">
+        L
+      </Box>
+    );
+  } else if (props.gender == 1) {
+    return (
+      <Box bg="pink.600" px="5px" py="2px" borderRadius={"2px"} color="white">
+        P
+      </Box>
+    );
+  } else if (props.gender == 2) {
+    return (
+      <Box bg="teal.600" px="5px" py="2px" borderRadius={"2px"} color="white">
+        S
+      </Box>
+    );
+  }
 }
 
 function Card({
@@ -82,8 +97,8 @@ Card.defaultProps = {
   date: "0 January 2022",
   time: "00:00 - 00:00",
   isOfficial: true,
-  onClick: () => {},
-  gender: "A",
+  onClick: () => { },
+  gender: 0,
   picture:
     "https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300",
 };

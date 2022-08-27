@@ -120,6 +120,7 @@ export default function Home() {
               participant={ctx.num_participants + " / " + ctx.max_participants}
               picture={ctx.image}
               key={idx}
+              gender={ctx.gender}
               onClick={() => {
                 Router.push(`/event/${ctx.id}`)
               }}
