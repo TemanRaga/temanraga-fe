@@ -12,25 +12,77 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import Router from "next/router";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import {
-  localEnv,
-  serverEnv,
-} from "../../common/constant/env"
+import { localEnv, serverEnv } from "../../common/constant/env";
+import { OAuthButton } from "../../common/components";
 
-function AlternateLogin() {
-  return (
-    <Flex borderRadius={"4px"} border="1px solid #C0C0C0" py="9px" px="45px">
-      <Icon icon="flat-color-icons:google" />
-    </Flex>
-  );
-}
+function Login(props) {
+  // States
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    gender: 0,
+    address: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
-function Login() {
+  // Handler
+  const handleSubmit = () => {
+    fetch(`${localEnv}/api/v1/auth/register/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(async (res) => {
+        if (res.status !== 201) {
+          toast({
+            title: `${res.statusText}`,
+            description: "Failed creating your account",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+          setIsLoading(false);
+        } else {
+          setTimeout(() => {
+            toast({
+              title: "Register Success",
+              description: `Your account have been created`,
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+          }, 500);
 
-  console.log(localEnv);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
+
+          setTimeout(() => {
+            Router.push("/login");
+          }, 1500);
+        }
+      })
+      .catch((err) => {
+        toast({
+          title: "Failed creating account",
+          description: "Please try again later",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        setIsLoading(false);
+      });
+  };
+
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="5%">
       <VStack bg="white" borderRadius={"12px"} p="51px" align={"flex-start"}>
@@ -41,26 +93,71 @@ function Login() {
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Nama Lengkap
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                ...data,
+                name: e.target.value,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Email
           </FormLabel>
-          <Input type="email" mb="23px" />
+          <Input
+            type="email"
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                ...data,
+                email: e.target.value,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Password
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                ...data,
+                password: e.target.value,
+              });
+            }}
+          />
           <FormLabel color="#2F2F2F" fontWeight={500}>
             Alamat
           </FormLabel>
-          <Input mb="23px" />
+          <Input
+            mb="23px"
+            onChange={(e) => {
+              setData({
+                ...data,
+                address: e.target.value,
+              });
+            }}
+          />
           <RadioGroup mb="23px">
             <Stack direction="row" spacing="24px">
-              <Radio value="1">Laki-Laki</Radio>
-              <Radio value="2">Perempuan</Radio>
+              <Radio
+                value="0"
+                onClick={(ctx) => {
+                  console.log(ctx.target);
+                }}
+              >
+                Laki-Laki
+              </Radio>
+              <Radio value="1">Perempuan</Radio>
             </Stack>
           </RadioGroup>
-          <Button colorScheme={"blue"} w="full" mb="23px">
+          <Button
+            colorScheme={"blue"}
+            w="full"
+            mb="23px"
+            onClick={handleSubmit}
+          >
             Daftar
           </Button>
         </FormControl>
@@ -77,11 +174,7 @@ function Login() {
           </Text>
           <Divider />
         </HStack>
-        <HStack>
-          <AlternateLogin />
-          <AlternateLogin />
-          <AlternateLogin />
-        </HStack>
+        <OAuthButton />
       </VStack>
     </Flex>
   );
