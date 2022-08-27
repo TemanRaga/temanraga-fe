@@ -15,7 +15,7 @@ import "swiper/css";
 function Kelebihan() {
   return (
     <VStack border="1px solid #C0C0C0" w="300px" p="18px" borderRadius="11px">
-      <Image src="/homepage/hero.svg" w="200px" h="200px" />
+      <Image alt="kelebihan" src="/homepage/hero.svg" w="200px" h="200px" />
       <Text fontWeight={600}>Aksesibilitas</Text>
       <Text fontWeight={300} textAlign="center">
         Semuanya dapat mengakses sistem pada paltform kami dengan mudah{" "}
@@ -43,6 +43,7 @@ export default function Home() {
             </Text>
           </VStack>
           <Image
+            alt="utama"
             src="/homepage/hero.svg"
             boxSize={{ base: "150px", md: "400px", lg: "600px" }}
           />
@@ -66,6 +67,7 @@ export default function Home() {
       <HStack py="5%" px="5%" justify="center">
         <Image
           src="/homepage/hero.svg"
+          alt="cari"
           boxSize={{ base: "150px", md: "400px", lg: "600px" }}
         />
         <VStack align="flex-start">
