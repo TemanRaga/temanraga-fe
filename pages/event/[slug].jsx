@@ -1,82 +1,80 @@
 import React, { useState, useEffect } from "react";
-import {
-  Link,
-  Text,
-  Flex,
-  Image,
-  Button,
-  HStack,
-} from "@chakra-ui/react";
+import { Link, Text, Flex, Image, Button, HStack } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 import { localEnv, serverEnv } from "../../common/constant/env";
 import Router from "next/router";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+import urlSplitter from "../../common/helper/urlSplitter";
 
 export default function EventDetail() {
-
   const [name, setName] = useState();
   const [creator, setCreator] = useState();
   const [description, setDescription] = useState();
   const [location, setLocation] = useState();
   const [participants, setParticipants] = useState([]);
   const [image, setImage] = useState();
+  const [id, setId] = useState("0");
 
   useEffect(() => {
-    fetch(`${localEnv}/api/v1/events/${3}`, {
+    // Getting id from url
+    const eventId = urlSplitter(1);
+    setId(id);
+
+    fetch(`${serverEnv}/api/v1/events/${eventId}`, {
       method: "GET",
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setName(data.data.name);
         setCreator(data.data.created_by.name);
         setDescription(data.data.description);
         setLocation(data.data.location);
         setParticipants(data.data.participants);
-        setImage(data.image);
+        setImage(data.data.image);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [])
+  }, []);
 
   const handleRegister = () => {
-    fetch(`${localEnv}/api/v1/events/${3}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${Cookies.get('access-temanraga')}`,
+        Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
       },
     })
       .then((res) => {
         return res.json();
-      }).then((data) => {
+      })
+      .then((data) => {
         console.log(data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   const handleDelete = () => {
-    fetch(`${localEnv}/api/v1/events/${1}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${Cookies.get('access-temanraga')}`,
+        Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
       },
     })
       .then((res) => {
         return res.json();
-      }).then((data) => {
+      })
+      .then((data) => {
         console.log(data);
         Router.push("/event");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
+  };
 
   return (
     <Flex my="50px" flexDirection="column" p="3%">
@@ -109,9 +107,7 @@ export default function EventDetail() {
           <Icon icon="bi:check-circle-fill" margin="200px 200px" />
         </HStack>
 
-        <Text>
-          {description}
-        </Text>
+        <Text>{description}</Text>
 
         <Flex
           gap={20}
@@ -151,7 +147,7 @@ export default function EventDetail() {
           <Button colorScheme="blue" onClick={handleRegister}>
             Ikutan Aktivitas
           </Button>
-          <Link href='/edit'>
+          <Link href="/edit">
             <Button colorScheme="blue" variant="outline">
               Edit Aktivitas
             </Button>
