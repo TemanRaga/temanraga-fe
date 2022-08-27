@@ -24,7 +24,7 @@ import urlSplitter from "../../../common/helper/urlSplitter";
 import Router from "next/router";
 import Cookies from "js-cookie";
 
-function CreateEvent() {
+function Edit() {
   const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const toast = useToast();
   const nowDate = new Date();
@@ -426,4 +426,4 @@ function CreateEvent() {
   );
 }
 
-export default CreateEvent;
+export default Edit;
