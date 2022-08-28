@@ -117,7 +117,7 @@ export default function EventDetail() {
           setIsNewlyJoined(true);
           setTimeout(() => {
             toast({
-              title: "Edit berhasil",
+              title: "Mengikuti aktivitas!",
               description: `Anda berhasil mengikuti aktivitas`,
               status: "success",
               duration: 2000,
@@ -133,7 +133,7 @@ export default function EventDetail() {
       })
       .catch((err) => {
         toast({
-          title: "Gagal mengedit aktivitas",
+          title: "Gagal mengikuti aktivitas",
           description: "Coba lagi di lain waktu",
           status: "error",
           duration: 2000,
