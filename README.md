@@ -1,5 +1,7 @@
 # TemanRaga-FE
 
+![Group 38](https://user-images.githubusercontent.com/70832561/187058738-d9ea63b8-9a35-4de8-b1c4-2a4ac92b4925.svg)
+
 [Frontend Repository](https://github.com/TemanRaga/temanraga-fe)
 
 [Backend Repository](https://github.com/TemanRaga/temanraga-be)
