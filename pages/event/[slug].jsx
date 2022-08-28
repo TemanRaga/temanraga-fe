@@ -7,6 +7,13 @@ import {
   Button,
   HStack,
   useToast,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 import Head from "next/head";
@@ -297,6 +304,49 @@ export default function EventDetail() {
               </>
             )}
           </Flex>
+        </Flex>
+
+        <Flex
+          p="36px"
+          boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          style={{ zIndex: "4" }}
+          width="80%"
+          margin="auto auto"
+          background="white"
+          marginTop="75px"
+          flexDirection="column"
+          borderRadius="10px"
+        >
+          <Text fontSize="xl" fontWeight="semibold" mb="8px">
+            Participants
+          </Text>
+
+          <TableContainer>
+            <Table variant="tr-simple">
+              <Thead>
+                <Tr>
+                  <Th isNumeric>No</Th>
+                  <Th px="16">Nama</Th>
+                  {isOwner &&
+                    <Th px="16">Email</Th>
+                  }
+                </Tr>
+              </Thead>
+              <Tbody>
+                {participants &&
+                  participants.map((ctx, idx) => (
+                    <Tr key={ctx.name}>
+                      <Td>{idx + 1}</Td>
+                      <Td>{ctx.name}</Td>
+                      {isOwner &&
+                        <Td>{ctx.email}</Td>
+                      }
+                    </Tr>
+                  ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+
         </Flex>
       </Flex>
     </>
