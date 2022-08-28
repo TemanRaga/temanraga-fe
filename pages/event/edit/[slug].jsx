@@ -136,7 +136,7 @@ function Edit() {
       body: postData,
     })
       .then(async (res) => {
-        if (res.status !== 201) {
+        if (res.status !== 200) {
           toast({
             title: `${res.statusText}`,
             description: "Gagal mengedit aktivitas",

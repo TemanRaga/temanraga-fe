@@ -112,6 +112,8 @@ export default function Dashboard() {
               href="/dashboard/editprofile"
               textAlign={"center"}
               mt="6"
+              w="fit-content"
+              m="auto"
               style={{ textDecoration: "none" }}
             >
               <Button colorScheme={"blue"} bg="blue.600">

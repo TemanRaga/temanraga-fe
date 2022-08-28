@@ -266,10 +266,10 @@ export default function EventDetail() {
 
           <Flex
             gap={5}
-            mt={(idUser && !isJoined) || isOwner ? "3%" : null}
+            mt={(idUser && !isJoined && !isOwner) || isOwner ? "3%" : null}
             flexDirection={{ sm: "column", lg: "row" }}
           >
-            {idUser && !isJoined && (
+            {(idUser && !isJoined && !isOwner) && (
               <Button
                 isLoading={isLoadingJoin}
                 colorScheme="blue"

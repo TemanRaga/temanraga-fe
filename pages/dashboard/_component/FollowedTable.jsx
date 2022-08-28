@@ -40,7 +40,10 @@ const FollowedTable = ({ data }) => {
                 <Td>{ctx.location}</Td>
                 <Td>
                   <Flex gap="4" justifyContent="center">
-                    <Link href={`/event/${ctx.id}`}>
+                    <Link
+                      href={`/event/${ctx.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
                       <Button colorScheme="blue" bg="blue.600">
                         Detail
                       </Button>
