@@ -54,7 +54,7 @@ function Edit() {
     let postData = new FormData();
     const startDate = date.startDate.slice(0, 10);
     const endDate = date.endDate.slice(0, 10);
-
+    console.log(oldImage)
     clientData.start = date.startDate.slice(11);
     clientData.finish = date.endDate.slice(11);
     clientData.date = startDate;
@@ -128,6 +128,7 @@ function Edit() {
     }
 
     const eventId = urlSplitter(1);
+    
     fetch(`https://temanraga.xyz/api/v1/events/${eventId}/`, {
       method: "PUT",
       headers: {
@@ -184,8 +185,18 @@ function Edit() {
         return res.json();
       })
       .then((data) => {
-        setClientData(data.data);
-        setOldImage(data.data.image);
+        setClientData({
+          name: data.data.name,
+          location: data.data.location,
+          description: data.data.description,
+          max_participants: data.data.max_participants,
+          gender: data.data.gender,
+          date: data.data.date,
+          start: data.data.start,
+          finish: data.data.finish,
+          image: data.data.image,
+        });
+        setOldImage("https" + data.data.image.slice(4));
         setDate({
           startDate: `${data.data.date.slice(6, 10)}-${data.data.date.slice(
             3,
@@ -205,7 +216,13 @@ function Edit() {
 
   return (
     <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
-      <VStack bg="white" borderRadius={"12px"} align={"flex-start"} p="51px" w="80%">
+      <VStack
+        bg="white"
+        borderRadius={"12px"}
+        align={"flex-start"}
+        p="51px"
+        w="80%"
+      >
         <Heading fontSize={"24px"} mb="23px">
           Edit Aktivitas
         </Heading>

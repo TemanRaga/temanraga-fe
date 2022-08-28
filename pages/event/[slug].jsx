@@ -134,7 +134,6 @@ export default function EventDetail() {
 
   const handleDelete = () => {
     setIsLoadingDelete(true);
-    console.log(id);
     fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "DELETE",
       headers: {
@@ -282,7 +281,7 @@ export default function EventDetail() {
             )}
             {isOwner && (
               <>
-                <Link href={`/edit/${id}`}>
+                <Link href={`event/edit/${id}`}>
                   <Button colorScheme="blue" variant="outline" w="100%">
                     Edit Aktivitas
                   </Button>
