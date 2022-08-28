@@ -282,7 +282,7 @@ export default function EventDetail() {
             )}
             {isOwner && (
               <>
-                <Link href="/edit">
+                <Link href={`/edit/${id}`}>
                   <Button colorScheme="blue" variant="outline" w="100%">
                     Edit Aktivitas
                   </Button>
