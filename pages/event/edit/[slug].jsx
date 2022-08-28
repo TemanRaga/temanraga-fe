@@ -54,7 +54,7 @@ function Edit() {
     let postData = new FormData();
     const startDate = date.startDate.slice(0, 10);
     const endDate = date.endDate.slice(0, 10);
-    console.log(oldImage)
+
     clientData.start = date.startDate.slice(11);
     clientData.finish = date.endDate.slice(11);
     clientData.date = startDate;
@@ -128,7 +128,6 @@ function Edit() {
     }
 
     const eventId = urlSplitter(1);
-    
     fetch(`https://temanraga.xyz/api/v1/events/${eventId}/`, {
       method: "PUT",
       headers: {
