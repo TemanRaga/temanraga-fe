@@ -2,7 +2,15 @@ import { useState, useEffect } from "react";
 import NextLink from "next/link";
 import DropdownButton from "./dropdownButton";
 import Dropdown from "./dropdown";
-import { Flex, HStack, Link, useDisclosure, Button, Text, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  HStack,
+  Link,
+  useDisclosure,
+  Button,
+  Text,
+  Image,
+} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
 const Navbar = () => {

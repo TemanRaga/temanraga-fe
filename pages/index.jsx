@@ -53,7 +53,7 @@ export default function Home() {
         <meta property="og:image" content="/favicon.png" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
+      <Box bg="#2b6cb0" py="2%" color="white" align={"center"}>
         <Flex
           w="80%"
           alignSelf={"center"}
@@ -62,10 +62,12 @@ export default function Home() {
           flexDirection={{ base: "column-reverse", md: "row" }}
         >
           <VStack align={"flex-start"}>
-            <Heading>TemanRaga</Heading>
-            <Text textAlign={"start"}>
-              TemanRaga adalah platform untuk mencari teman olahraga dengan
-              membuat atau mengikuti aktivitas olahraga yang ada
+            <Text fontSize="48px" fontWeight="600">
+              TemanRaga
+            </Text>
+            <Text textAlign={"start"} fontSize="21px">
+              Platform untuk mencari teman olahraga dengan membuat atau
+              mengikuti aktivitas olahraga yang ada
             </Text>
           </VStack>
           <Image
@@ -85,9 +87,21 @@ export default function Home() {
           w={{ base: "auto", lg: "80%" }}
           flexDirection={{ base: "column", lg: "row" }}
         >
-          <Kelebihan judul={'Aksesibilitas'} deskripsi='Semuanya dapat mengakses sistem pada platform kami dengan mudah ' img="/homepage/Accesibilty.svg" />
-          <Kelebihan judul={'Gratis'} deskripsi='Tanpa mengeluarkan uang kalian bisa bertemu dengan orang terdekat' img="/homepage/gratis.svg" />
-          <Kelebihan judul={'Kredibilitas'} deskripsi='Website kami dijamin aman dan diawasi oleh tim kami' img="/homepage/kredibilitas.svg" />
+          <Kelebihan
+            judul={"Aksesibilitas"}
+            deskripsi="Semuanya dapat mengakses sistem pada platform kami dengan mudah "
+            img="/homepage/Accesibilty.svg"
+          />
+          <Kelebihan
+            judul={"Gratis"}
+            deskripsi="Tanpa mengeluarkan uang kalian bisa bertemu dengan orang terdekat"
+            img="/homepage/gratis.svg"
+          />
+          <Kelebihan
+            judul={"Kredibilitas"}
+            deskripsi="Website kami dijamin aman dan diawasi oleh tim kami"
+            img="/homepage/kredibilitas.svg"
+          />
         </Flex>
       </VStack>
       <HStack py="5%" px="5%" justify="center">
@@ -104,7 +118,9 @@ export default function Home() {
           >
             Yuk Cari TemanRaga-mu sekarang!
           </Text>
-          <Button colorScheme={"blue"} bg="blue.600">Cari Aktivitas</Button>
+          <Button colorScheme={"blue"} bg="blue.600">
+            Cari Aktivitas
+          </Button>
         </VStack>
       </HStack>
       <VStack px="5%" mb="5%">
@@ -112,7 +128,7 @@ export default function Home() {
           Aktivitas Terpopuler
         </Heading>
         <Flex
-          gap={{ base: "60px", lg: "120px" }}
+          gap={{ base: "60px", lg: "70px" }}
           justify={"center"}
           w={{ base: "auto", lg: "full" }}
           flexDirection={{ base: "column", lg: "row" }}

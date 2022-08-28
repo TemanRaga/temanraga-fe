@@ -13,7 +13,7 @@ export default function Card({ title, picture, paragraph, date }) {
         <Image
           src={picture}
           borderRadius="10px"
-          boxSize={{ base: '150px', md: '400px' }}
+          boxSize={{ base: "150px", md: "400px" }}
         />
       </Flex>
 

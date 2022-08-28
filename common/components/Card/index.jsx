@@ -39,7 +39,7 @@ function Card({
     <Box
       border="1px solid #C0C0C0"
       borderRadius={"8px"}
-      w={{ base: "280px", md: "300px"}}
+      w={{ base: "280px", md: "300px" }}
       fontSize="12px"
       cursor="pointer"
       onClick={onClick}

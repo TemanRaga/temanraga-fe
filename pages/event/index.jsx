@@ -80,7 +80,7 @@ export default function Event() {
             .toLowerCase()
             .includes(filterState.location.toLocaleLowerCase())
       );
-    }  else if (filterState.activity !== "") {
+    } else if (filterState.activity !== "") {
       setFilterText({
         ...filterText,
         location: `semua lokasi`,
@@ -104,7 +104,7 @@ export default function Event() {
           .toLowerCase()
           .includes(filterState.location.toLocaleLowerCase())
       );
-    }else {
+    } else {
       setFilterText({
         ...filterText,
         activity: `Semua aktivitas`,
