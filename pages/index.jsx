@@ -50,6 +50,8 @@ export default function Home() {
       <Head>
         <title>TemanRaga - Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Box bg="#2b6cb0" py="5%" color="white" align={"center"}>
         <Flex

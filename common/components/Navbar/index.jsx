@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
-import Router from "next/router";
 import DropdownButton from "./dropdownButton";
 import Dropdown from "./dropdown";
-import { Flex, HStack, Link, useDisclosure, Button } from "@chakra-ui/react";
+import { Flex, HStack, Link, useDisclosure, Button, Text, Image } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
@@ -29,12 +28,15 @@ const Navbar = () => {
       >
         <NextLink href="/" passHref>
           <Link
-            fontSize={{ base: 16, sm: 20, md: 24 }}
-            fontWeight="semibold"
+            fontSize="24"
+            fontWeight="bold"
             color="blue.600"
+            display="flex"
+            gap="4"
             style={{ textDecoration: "none" }}
           >
-            TemanRaga
+            <Image src="/favicon.png" w="36px" h="36px" />
+            <Text>TemanRaga</Text>
           </Link>
         </NextLink>
         <HStack display={{ base: "none", lg: "flex" }} gap="1">
