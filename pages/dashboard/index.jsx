@@ -39,11 +39,11 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    //if(!token) router.push('/');
+    if(!token) router.push('/');
     fetch(`${serverEnv}/api/v1/profiles/`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyMjUyNDIwLCJpYXQiOjE2NjE2NDc2MjAsImp0aSI6IjgwYzliNTc5NDVlMTRlMTViOGYxMTMzZWM3YWVhODkyIiwidXNlcl9pZCI6OCwiZW1haWwiOiJla2lyaWRnZWJhY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJNdWhhbW1hZCBBbCBGYXJpemkiLCJnZW5kZXIiOjAsImFkZHJlc3MiOiJKYWxhbmFuIiwiaXNfY29tcGxldGVkIjp0cnVlLCJpc192ZXJpZmllZCI6ZmFsc2V9.uLrG2bnY7EM3_Qg9ceWUtJ70voVA4oh2AhIfSvfMdXw`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
