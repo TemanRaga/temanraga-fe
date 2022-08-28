@@ -39,7 +39,7 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    if(!token) router.push('/');
+    if (!token) router.push("/");
     fetch(`${serverEnv}/api/v1/profiles/`, {
       method: "GET",
       headers: {
@@ -191,7 +191,7 @@ export default function Dashboard() {
               justifyContent={"center"}
             >
               {userData.event_soon.map((ctx, idx) => (
-                <Box w="fit-content" m={{ base: "auto", md: null }}>
+                <Box w="fit-content" m={{ base: "auto", md: null }} key={idx}>
                   <Card
                     name={ctx.name}
                     creator={ctx.created_by.name}
@@ -201,9 +201,7 @@ export default function Dashboard() {
                     participant={
                       ctx.num_participants + " / " + ctx.max_participants
                     }
-                    picture={"http://temanraga.xyz"+ctx.image}
-                    
-                    key={idx}
+                    picture={"http://temanraga.xyz" + ctx.image}
                     gender={ctx.gender}
                     onClick={() => {
                       Router.push(`/event/${ctx.id}`);
