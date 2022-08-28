@@ -245,11 +245,12 @@ export default function Event() {
                     date={ctx.date}
                     time={ctx.start + " - " + ctx.finish}
                     participant={
-                      ctx.num_participants + " / " + ctx.max_participants
+                      ctx.participants.length + " / " + ctx.max_participants
                     }
                     picture={ctx.image}
                     key={idx}
                     gender={ctx.gender}
+                    isVerified={ctx.created_by.is_verified}
                     onClick={() => {
                       Router.push(`/event/${ctx.id}`);
                     }}

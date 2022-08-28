@@ -161,8 +161,8 @@ export default function Dashboard() {
                   text={
                     userData.event_soon.length != 0 &&
                     userData.event_soon[0].start +
-                      " - " +
-                      userData.event_soon[0].finish
+                    " - " +
+                    userData.event_soon[0].finish
                   }
                 />
               </>
@@ -201,8 +201,9 @@ export default function Dashboard() {
                     date={ctx.date}
                     time={ctx.start + " - " + ctx.finish}
                     participant={
-                      ctx.num_participants + " / " + ctx.max_participants
+                      ctx.participants.length + " / " + ctx.max_participants
                     }
+                    isVerified={ctx.created_by.is_verified}
                     picture={"http://temanraga.xyz" + ctx.image}
                     gender={ctx.gender}
                     onClick={() => {

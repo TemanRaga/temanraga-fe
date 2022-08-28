@@ -53,7 +53,7 @@ export default function Home() {
         <meta property="og:image" content="/favicon.png" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <Box bg="blue.600" py={{base:"48px", md: "2%"}} color="white" align={"center"}>
+      <Box bg="blue.600" py={{ base: "48px", md: "2%" }} color="white" align={"center"}>
         <Flex
           w="80%"
           alignSelf={"center"}
@@ -62,10 +62,10 @@ export default function Home() {
           flexDirection={{ base: "column-reverse", md: "row" }}
         >
           <VStack align={"flex-start"}>
-            <Text fontSize={{base:"24px", md:"36px", lg:"48px"}} fontWeight="600">
+            <Text fontSize={{ base: "24px", md: "36px", lg: "48px" }} fontWeight="600">
               TemanRaga
             </Text>
-            <Text textAlign={"start"} fontSize={{base:"16px", md:"20px"}}>
+            <Text textAlign={"start"} fontSize={{ base: "16px", md: "20px" }}>
               Platform untuk mencari teman olahraga dengan membuat atau
               mengikuti aktivitas olahraga yang ada
             </Text>
@@ -142,11 +142,12 @@ export default function Home() {
                 date={ctx.date}
                 time={ctx.start + " - " + ctx.finish}
                 participant={
-                  ctx.num_participants + " / " + ctx.max_participants
+                  ctx.participants.length + " / " + ctx.max_participants
                 }
                 picture={ctx.image}
                 key={idx}
                 gender={ctx.gender}
+                isVerified={ctx.created_by.is_verified}
                 onClick={() => {
                   Router.push(`/event/${ctx.id}`);
                 }}
