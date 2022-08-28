@@ -10,14 +10,10 @@ import {
   HStack,
   Textarea,
   Text,
-  Stack,
-  Box,
   Select,
   Image,
   useToast,
 } from "@chakra-ui/react";
-import { Icon } from "@iconify/react";
-import { localEnv } from "../../common/constant/env";
 import Router from "next/router";
 import Cookies from "js-cookie";
 import Head from "next/head";
@@ -171,6 +167,8 @@ function CreateEvent() {
       <Head>
         <title>TemanRaga - Create Event</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
         <VStack

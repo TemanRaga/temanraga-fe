@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import Router from "next/router";
 import React, { useState } from "react";
-import { localEnv, serverEnv } from "../../common/constant/env";
+import { serverEnv } from "../../common/constant/env";
 import { OAuthButton } from "../../common/components";
 import Head from "next/head";
 
@@ -93,6 +93,8 @@ function Login(props) {
       <Head>
         <title>TemanRaga - Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
         <VStack

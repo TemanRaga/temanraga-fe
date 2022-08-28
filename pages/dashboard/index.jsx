@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import {
   Box,
   Flex,
@@ -17,7 +18,7 @@ import CreatedTable from "./_component/CreatedTable";
 import FollowedTable from "./_component/FollowedTable";
 
 import { Card } from "../../common/components";
-import { localEnv, serverEnv } from "../../common/constant/env";
+import { serverEnv } from "../../common/constant/env";
 import Cookies from "js-cookie";
 
 export default function Dashboard() {
@@ -69,192 +70,204 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Box w="full" py="80px" bg="blue.600">
-      <Flex
-        direction="column"
-        gap="8"
-        bg="white"
-        mx={{ base: "2%", md: "80px" }}
-        p={{ base: "4", md: "24" }}
-        py={{ base: "16", md: null }}
-        borderRadius="lg"
-      >
-        <Text
-          fontSize={{ base: "24", sm: "28", md: "32" }}
-          fontWeight="semibold"
-        >
-          Halo, {userData.user.name}
-        </Text>
-        <Stack
-          direction={{ base: "column", xl: "row" }}
-          justifyContent="space-between"
-          alignItems={{ base: "center", xl: "initial" }}
+    <>
+      <Head>
+        <title>TemanRaga - Dashboard</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+      <Box w="full" py="80px" bg="blue.600">
+        <Flex
+          direction="column"
           gap="8"
+          bg="white"
+          mx={{ base: "2%", md: "80px" }}
+          p={{ base: "4", md: "24" }}
+          py={{ base: "16", md: null }}
+          borderRadius="lg"
         >
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            gap={{ base: "6", md: "2" }}
-            p="8"
-            border="1px"
-            borderColor="gray.400"
-            borderRadius="xl"
-            w="100%"
+          <Text
+            fontSize={{ base: "24", sm: "28", md: "32" }}
+            fontWeight="semibold"
           >
-            <ProfileText title="Nama" text={userData.user.name} />
-            <ProfileText title="Email" text={userData.user.email} />
-            <ProfileText
-              title="Jenis Kelamin"
-              text={userData.user.gender ? "Perempuan" : "Laki-laki"}
-            />
-            <ProfileText title="Alamat" text={userData.user.address} />
-            <Link
-              href="/dashboard/editprofile"
-              textAlign={"center"}
-              mt="6"
-              w="fit-content"
-              m="auto"
-              style={{ textDecoration: "none" }}
+            Halo, {userData.user.name}
+          </Text>
+          <Stack
+            direction={{ base: "column", xl: "row" }}
+            justifyContent="space-between"
+            alignItems={{ base: "center", xl: "initial" }}
+            gap="8"
+          >
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              gap={{ base: "6", md: "2" }}
+              p="8"
+              border="1px"
+              borderColor="gray.400"
+              borderRadius="xl"
+              w="100%"
             >
-              <Button colorScheme={"blue"} bg="blue.600">
-                Edit Profil
-              </Button>
-            </Link>
-          </Flex>
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            gap="2"
-            p="8"
-            border="1px"
-            borderColor="gray.400"
-            borderRadius="lg"
-            w="100%"
-          >
-            {hasOngoingActivity ? (
-              <>
-                <Text fontWeight="semibold">Aktivitas terdekat</Text>
-                <Text
-                  fontSize={{ base: "24", md: "32" }}
-                  fontWeight="semibold"
-                  mb="4"
-                >
-                  {userData.event_soon.length != 0 &&
-                    userData.event_soon[0].name}
+              <ProfileText title="Nama" text={userData.user.name} />
+              <ProfileText title="Email" text={userData.user.email} />
+              <ProfileText
+                title="Jenis Kelamin"
+                text={userData.user.gender ? "Perempuan" : "Laki-laki"}
+              />
+              <ProfileText title="Alamat" text={userData.user.address} />
+              <Link
+                href="/dashboard/editprofile"
+                textAlign={"center"}
+                mt="6"
+                w="fit-content"
+                m="auto"
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme={"blue"} bg="blue.600">
+                  Edit Profil
+                </Button>
+              </Link>
+            </Flex>
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              gap="2"
+              p="8"
+              border="1px"
+              borderColor="gray.400"
+              borderRadius="lg"
+              w="100%"
+            >
+              {hasOngoingActivity ? (
+                <>
+                  <Text fontWeight="semibold">Aktivitas terdekat</Text>
+                  <Text
+                    fontSize={{ base: "24", md: "32" }}
+                    fontWeight="semibold"
+                    mb="4"
+                  >
+                    {userData.event_soon.length != 0 &&
+                      userData.event_soon[0].name}
+                  </Text>
+                  <IconText
+                    icon="ci:location"
+                    text={
+                      userData.event_soon.length != 0 &&
+                      userData.event_soon[0].location
+                    }
+                  />
+                  <IconText
+                    icon="ic:baseline-date-range"
+                    text={
+                      userData.event_soon.length != 0 &&
+                      userData.event_soon[0].date
+                    }
+                  />
+                  <IconText
+                    icon="akar-icons:clock"
+                    text={
+                      userData.event_soon.length != 0 &&
+                      userData.event_soon[0].start +
+                        " - " +
+                        userData.event_soon[0].finish
+                    }
+                  />
+                </>
+              ) : (
+                <VStack gap="2">
+                  <Text
+                    textAlign="center"
+                    fontWeight="semibold"
+                    fontSize="24px"
+                  >
+                    Belum ada aktivitas yang sedang diikuti, yuk cari sekarang!
+                  </Text>
+                  <Button
+                    onClick={() => router.push("/event")}
+                    colorScheme="blue"
+                    bg="blue.600"
+                  >
+                    Cari aktivitas
+                  </Button>
+                </VStack>
+              )}
+            </Flex>
+          </Stack>
+          {hasOngoingActivity && (
+            <Box>
+              <Text fontSize="24px" fontWeight="semibold" mb="8">
+                Aktivitas yang akan diikuti
+              </Text>
+              <SimpleGrid
+                minChildWidth={{ base: "270px", md: "300px" }}
+                spacing={{ base: "16px", lg: "40px" }}
+                justifyContent={"center"}
+              >
+                {userData.event_soon.map((ctx, idx) => (
+                  <Box w="fit-content" m={{ base: "auto", md: null }} key={idx}>
+                    <Card
+                      name={ctx.name}
+                      creator={ctx.created_by.name}
+                      location={ctx.location}
+                      date={ctx.date}
+                      time={ctx.start + " - " + ctx.finish}
+                      participant={
+                        ctx.participants.length + " / " + ctx.max_participants
+                      }
+                      isVerified={ctx.created_by.is_verified}
+                      picture={"http://temanraga.xyz" + ctx.image}
+                      gender={ctx.gender}
+                      onClick={() => {
+                        router.push(`/event/${ctx.id}`);
+                      }}
+                    />
+                  </Box>
+                ))}
+              </SimpleGrid>
+            </Box>
+          )}
+          {hasCreateActivity ? (
+            <Box>
+              <HStack mb="8">
+                <Text fontSize="24px" fontWeight="semibold" mr="4">
+                  Aktivitas yang telah dibuat
                 </Text>
-                <IconText
-                  icon="ci:location"
-                  text={
-                    userData.event_soon.length != 0 &&
-                    userData.event_soon[0].location
-                  }
-                />
-                <IconText
-                  icon="ic:baseline-date-range"
-                  text={
-                    userData.event_soon.length != 0 &&
-                    userData.event_soon[0].date
-                  }
-                />
-                <IconText
-                  icon="akar-icons:clock"
-                  text={
-                    userData.event_soon.length != 0 &&
-                    userData.event_soon[0].start +
-                    " - " +
-                    userData.event_soon[0].finish
-                  }
-                />
-              </>
-            ) : (
-              <VStack gap="2">
-                <Text textAlign="center" fontWeight="semibold" fontSize="24px">
-                  Belum ada aktivitas yang sedang diikuti, yuk cari sekarang!
-                </Text>
+
                 <Button
-                  onClick={() => router.push("/event")}
-                  colorScheme="blue"
+                  onClick={() => router.push("/event/create")}
+                  colorScheme={"blue"}
                   bg="blue.600"
                 >
-                  Cari aktivitas
+                  Buat Aktivitas
                 </Button>
-              </VStack>
-            )}
-          </Flex>
-        </Stack>
-        {hasOngoingActivity && (
-          <Box>
-            <Text fontSize="24px" fontWeight="semibold" mb="8">
-              Aktivitas yang akan diikuti
-            </Text>
-            <SimpleGrid
-              minChildWidth={{ base: "270px", md: "300px" }}
-              spacing={{ base: "16px", lg: "40px" }}
-              justifyContent={"center"}
-            >
-              {userData.event_soon.map((ctx, idx) => (
-                <Box w="fit-content" m={{ base: "auto", md: null }} key={idx}>
-                  <Card
-                    name={ctx.name}
-                    creator={ctx.created_by.name}
-                    location={ctx.location}
-                    date={ctx.date}
-                    time={ctx.start + " - " + ctx.finish}
-                    participant={
-                      ctx.participants.length + " / " + ctx.max_participants
-                    }
-                    isVerified={ctx.created_by.is_verified}
-                    picture={"http://temanraga.xyz" + ctx.image}
-                    gender={ctx.gender}
-                    onClick={() => {
-                      router.push(`/event/${ctx.id}`);
-                    }}
-                  />
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Box>
-        )}
-        {hasCreateActivity ? (
-          <Box>
-            <HStack mb="8">
-              <Text fontSize="24px" fontWeight="semibold" mr="4">
-                Aktivitas yang telah dibuat
+              </HStack>
+              <CreatedTable data={userData.event_created} />
+            </Box>
+          ) : (
+            <VStack gap="2" mt="8">
+              <Text textAlign="center" fontWeight="semibold" fontSize="24px">
+                Kamu belum pernah membuat aktivitas nih, ayo buat sekarang!
               </Text>
-
               <Button
                 onClick={() => router.push("/event/create")}
-                colorScheme={"blue"}
+                colorScheme="blue"
                 bg="blue.600"
               >
-                Buat Aktivitas
+                Buat aktivitas
               </Button>
-            </HStack>
-            <CreatedTable data={userData.event_created} />
-          </Box>
-        ) : (
-          <VStack gap="2" mt="8">
-            <Text textAlign="center" fontWeight="semibold" fontSize="24px">
-              Kamu belum pernah membuat aktivitas nih, ayo buat sekarang!
-            </Text>
-            <Button
-              onClick={() => router.push("/event/create")}
-              colorScheme="blue"
-              bg="blue.600"
-            >
-              Buat aktivitas
-            </Button>
-          </VStack>
-        )}
-        {hasHistoricActivity && (
-          <Box>
-            <Text fontSize="24px" fontWeight="semibold" mb="8">
-              Aktivitas yang telah diikuti
-            </Text>
-            <FollowedTable data={userData.event_done} />
-          </Box>
-        )}
-      </Flex>
-    </Box>
+            </VStack>
+          )}
+          {hasHistoricActivity && (
+            <Box>
+              <Text fontSize="24px" fontWeight="semibold" mb="8">
+                Aktivitas yang telah diikuti
+              </Text>
+              <FollowedTable data={userData.event_done} />
+            </Box>
+          )}
+        </Flex>
+      </Box>
+    </>
   );
 }

@@ -18,7 +18,7 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
-import { Icon } from "@iconify/react";
+import Head from "next/head";
 import { serverEnv } from "../../../common/constant/env";
 import urlSplitter from "../../../common/helper/urlSplitter";
 import Router from "next/router";
@@ -214,205 +214,197 @@ function Edit() {
   }, []);
 
   return (
-    <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
-      <VStack
-        bg="white"
-        borderRadius={"12px"}
-        align={"flex-start"}
-        p="51px"
-        w="80%"
-      >
-        <Heading fontSize={"24px"} mb="23px">
-          Edit Aktivitas
-        </Heading>
-        <FormControl isRequired>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+    <>
+      <Head>
+        <title>TemanRaga - Create Event</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+      <Flex w="full" bg="blue.600" justify={"center"} align="center" py="80px">
+        <VStack
+          bg="white"
+          borderRadius={"12px"}
+          align={"flex-start"}
+          p="51px"
+          w="80%"
+        >
+          <Heading fontSize={"24px"} mb="23px">
+            Edit Aktivitas
+          </Heading>
+          <FormControl isRequired>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Nama aktivitas
-              </FormLabel>
-              <Input
-                defaultValue={clientData.name}
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    name: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Gender khusus
-              </FormLabel>
-              <Select
-                value={clientData.gender}
-                onChange={(e) =>
-                  setClientData({
-                    ...clientData,
-                    gender: e.target.value,
-                  })
-                }
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
               >
-                <option value="2">Semua orang</option>
-                <option value="0">Laki-Laki</option>
-                <option value="1">Perempuan</option>
-              </Select>
-            </VStack>
-          </Flex>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Nama aktivitas
+                </FormLabel>
+                <Input
+                  defaultValue={clientData.name}
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Gender khusus
+                </FormLabel>
+                <Select
+                  value={clientData.gender}
+                  onChange={(e) =>
+                    setClientData({
+                      ...clientData,
+                      gender: e.target.value,
+                    })
+                  }
+                >
+                  <option value="2">Semua orang</option>
+                  <option value="0">Laki-Laki</option>
+                  <option value="1">Perempuan</option>
+                </Select>
+              </VStack>
+            </Flex>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Lokasi
-              </FormLabel>
-              <Input
-                defaultValue={clientData.location}
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    location: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Lokasi
+                </FormLabel>
+                <Input
+                  defaultValue={clientData.location}
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      location: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Jumlah maksimal peserta
+                </FormLabel>
+                <Input
+                  type="number"
+                  defaultValue={clientData.max_participants}
+                  onChange={(e) => {
+                    setClientData({
+                      ...clientData,
+                      max_participants: e.target.value,
+                    });
+                  }}
+                />
+              </VStack>
+            </Flex>
+            <Flex
+              justify="space-between"
+              flexDirection={{ base: "column", md: "row" }}
             >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Jumlah maksimal peserta
-              </FormLabel>
-              <Input
-                type="number"
-                defaultValue={clientData.max_participants}
-                onChange={(e) => {
-                  setClientData({
-                    ...clientData,
-                    max_participants: e.target.value,
-                  });
-                }}
-              />
-            </VStack>
-          </Flex>
-          <Flex
-            justify="space-between"
-            flexDirection={{ base: "column", md: "row" }}
-          >
-            <VStack
-              align={"flex-start"}
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Tanggal dan waktu dimulai
+                </FormLabel>
+                <Input
+                  type="datetime-local"
+                  defaultValue={date.startDate}
+                  onChange={(e) =>
+                    setDate({
+                      ...date,
+                      startDate: e.target.value,
+                    })
+                  }
+                />
+              </VStack>
+              <VStack
+                align={"flex-start"}
+                mb="23px"
+                w={{ base: "100%", md: "45%" }}
+              >
+                <FormLabel color="#2F2F2F" fontWeight={500}>
+                  Tanggal dan waktu selesai
+                </FormLabel>
+                <Input
+                  defaultValue={date.endDate}
+                  type="datetime-local"
+                  onChange={(e) =>
+                    setDate({
+                      ...date,
+                      endDate: e.target.value,
+                    })
+                  }
+                />
+              </VStack>
+            </Flex>
+            <FormLabel color="#2F2F2F" fontWeight={500}>
+              Deskripsi
+            </FormLabel>
+            <Textarea
+              defaultValue={clientData.description}
               mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Tanggal dan waktu dimulai
-              </FormLabel>
-              <Input
-                type="datetime-local"
-                defaultValue={date.startDate}
-                onChange={(e) =>
-                  setDate({
-                    ...date,
-                    startDate: e.target.value,
-                  })
-                }
-              />
-            </VStack>
-            <VStack
-              align={"flex-start"}
-              mb="23px"
-              w={{ base: "100%", md: "45%" }}
-            >
-              <FormLabel color="#2F2F2F" fontWeight={500}>
-                Tanggal dan waktu selesai
-              </FormLabel>
-              <Input
-                defaultValue={date.endDate}
-                type="datetime-local"
-                onChange={(e) =>
-                  setDate({
-                    ...date,
-                    endDate: e.target.value,
-                  })
-                }
-              />
-            </VStack>
-          </Flex>
-          <FormLabel color="#2F2F2F" fontWeight={500}>
-            Deskripsi
-          </FormLabel>
-          <Textarea
-            defaultValue={clientData.description}
-            mb="23px"
-            h={{ base: "200px", md: "250px" }}
-            onChange={(e) => {
-              setClientData({
-                ...clientData,
-                description: e.target.value,
-              });
-            }}
-          />
-          <Text color="#2F2F2F" fontWeight={500} mb="16px">
-            Foto atau logo aktivitas
-          </Text>
-
-          <HStack>
-            <Input
-              defaultValue={clientData.image}
-              w="fit-content"
-              type="file"
-              accept="image/x-png,image/jpg,image/jpeg"
+              h={{ base: "200px", md: "250px" }}
               onChange={(e) => {
                 setClientData({
                   ...clientData,
-                  image: e.target.files[0],
+                  description: e.target.value,
                 });
-                setIsUploaded(true);
               }}
-            ></Input>
-          </HStack>
-          <RadioGroup onChange={setImageSelect} value={imageSelect}>
-            <Flex direction={{ base: "column", lg: "row" }} gap="4">
-              <Flex direction="column" w={{ base: "100%", lg: "50%" }}>
-                <Flex>
-                  <Text my="4">Foto atau logo lama</Text>
-                  <Radio ml="4" value="0"></Radio>
-                </Flex>
-                <Image
-                  src={oldImage}
-                  border="1px"
-                  borderColor="gray.400"
-                  w="100%"
-                  h={{ base: "200px", md: "300px" }}
-                  objectFit="cover"
-                />
-              </Flex>
-              {isUploaded && (
+            />
+            <Text color="#2F2F2F" fontWeight={500} mb="16px">
+              Foto atau logo aktivitas
+            </Text>
+
+            <HStack>
+              <Input
+                defaultValue={clientData.image}
+                w="fit-content"
+                type="file"
+                accept="image/x-png,image/jpg,image/jpeg"
+                onChange={(e) => {
+                  setClientData({
+                    ...clientData,
+                    image: e.target.files[0],
+                  });
+                  setIsUploaded(true);
+                }}
+              ></Input>
+            </HStack>
+            <RadioGroup onChange={setImageSelect} value={imageSelect}>
+              <Flex direction={{ base: "column", lg: "row" }} gap="4">
                 <Flex direction="column" w={{ base: "100%", lg: "50%" }}>
                   <Flex>
-                    <Text my="4">Foto atau logo baru</Text>
-                    <Radio ml="4" value="1"></Radio>
+                    <Text my="4">Foto atau logo lama</Text>
+                    <Radio ml="4" value="0"></Radio>
                   </Flex>
                   <Image
-                    src={URL.createObjectURL(clientData.image)}
+                    src={oldImage}
                     border="1px"
                     borderColor="gray.400"
                     w="100%"
@@ -420,25 +412,41 @@ function Edit() {
                     objectFit="cover"
                   />
                 </Flex>
-              )}
+                {isUploaded && (
+                  <Flex direction="column" w={{ base: "100%", lg: "50%" }}>
+                    <Flex>
+                      <Text my="4">Foto atau logo baru</Text>
+                      <Radio ml="4" value="1"></Radio>
+                    </Flex>
+                    <Image
+                      src={URL.createObjectURL(clientData.image)}
+                      border="1px"
+                      borderColor="gray.400"
+                      w="100%"
+                      h={{ base: "200px", md: "300px" }}
+                      objectFit="cover"
+                    />
+                  </Flex>
+                )}
+              </Flex>
+            </RadioGroup>
+            <Flex w="full" alignItems="center">
+              <Button
+                isLoading={isSubmitting}
+                onClick={handleSubmit}
+                colorScheme={"blue"}
+                bg="blue.600"
+                m="auto"
+                type="submit"
+                mt="96px"
+              >
+                Buat Aktivitas
+              </Button>
             </Flex>
-          </RadioGroup>
-          <Flex w="full" alignItems="center">
-            <Button
-              isLoading={isSubmitting}
-              onClick={handleSubmit}
-              colorScheme={"blue"}
-              bg="blue.600"
-              m="auto"
-              type="submit"
-              mt="96px"
-            >
-              Buat Aktivitas
-            </Button>
-          </Flex>
-        </FormControl>
-      </VStack>
-    </Flex>
+          </FormControl>
+        </VStack>
+      </Flex>
+    </>
   );
 }
 

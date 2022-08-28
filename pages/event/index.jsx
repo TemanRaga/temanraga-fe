@@ -9,9 +9,8 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
 import { Card } from "../../common/components";
-import { localEnv, serverEnv } from "../../common/constant/env";
+import { serverEnv } from "../../common/constant/env";
 import axios from "axios";
 import Router from "next/router";
 import Head from "next/head";
@@ -155,6 +154,8 @@ export default function Event() {
       <Head>
         <title>TemanRaga - Events</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Flex flexDirection="column">
         <Flex flexDirection="column" p="0px">

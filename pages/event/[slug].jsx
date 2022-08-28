@@ -196,6 +196,8 @@ export default function EventDetail() {
       <Head>
         <title>TemanRaga - Create Event</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:image" content="/favicon.png" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Flex mt="8px" mb="50px" flexDirection="column" px="3%">
         <Flex>
