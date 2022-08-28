@@ -2,14 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import {
   Stack,
-  Container,
-  VStack,
   Text,
   Input,
   Flex,
-  Spacer,
   Box,
-  Checkbox,
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
