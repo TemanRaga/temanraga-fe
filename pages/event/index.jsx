@@ -158,7 +158,7 @@ export default function Event() {
       </Head>
       <Flex flexDirection="column">
         <Flex flexDirection="column" p="0px">
-          <Flex flexDirection="column" px="18%" py="5%">
+          <Flex flexDirection="column" px={{base: "8%" , lg:"18%"}} py={{ base: "36px", lg: "5%" }}>
             <Text
               fontSize="3xl"
               textAlign="center"
@@ -198,13 +198,20 @@ export default function Event() {
                   });
                 }}
               />
-              <SearchIcon m="auto" cursor="pointer" />
             </Flex>
           </Flex>
 
-          <Flex flexDirection="row" px="8%" mb="10%">
-            <Flex width="13%" flexDirection="column">
-              <Text fontSize="xl" mb="3%" fontWeight="semibold">
+          <Flex flexDirection={{ base: "column", lg: "row" }} px="8%" mb="10%">
+            <Flex
+              width={{ base: "100%", lg: "13%" }}
+              mb={{ base: "48px", lg: null }}
+              flexDirection="column"
+            >
+              <Text
+                fontSize={{ base: "lg", md: "xl" }}
+                mb={{ base: "4px", lg: "3%" }}
+                fontWeight="semibold"
+              >
                 Filter
               </Text>
               <Text fontSize="lg" mb="1%" fontWeight="medium">
@@ -219,7 +226,7 @@ export default function Event() {
                   });
                 }}
               >
-                <Stack>
+                <Stack direction={{ base: "row", lg: "column" }} flexWrap="wrap">
                   <Radio value="2">Semua Gender</Radio>
                   <Radio value="0">Laki - Laki</Radio>
                   <Radio value="1">Perempuan</Radio>
@@ -227,33 +234,43 @@ export default function Event() {
               </RadioGroup>
             </Flex>
 
-            <Flex width="8%" ml="10px">
-              <Box width="4px" background="C0C0C0" />
+            <Flex w={{base:"0%", lg: "8%"}} ml="10px">
+              <Box width="4px" />
             </Flex>
 
-            <Flex width="80%" flexDirection="column">
-              <Text fontSize="2xl" mb="2%" fontWeight="semibold">
+            <Flex width={{ base: "100%", lg: "80%" }} flexDirection="column" alignItems={{base:"center", lg: "flex-start"}}>
+              <Text
+                fontSize={{ base: "xl", md: "2xl" }}
+                mb="24px"
+                fontWeight="semibold"
+              >
                 {`${filterText.activity} di ${filterText.location}`}
               </Text>
 
-              <Flex flexDirection="row" flexWrap="wrap" gap={10}>
+              <Flex
+                flexDirection="row"
+                flexWrap="wrap"
+                gap={6}
+                justifyContent={{ base: "space-between", lg: "flex-start" }}
+              >
                 {showData.map((ctx, idx) => (
-                  <Card
-                    name={ctx.name}
-                    creator={ctx.created_by.name}
-                    location={ctx.location}
-                    date={ctx.date}
-                    time={ctx.start + " - " + ctx.finish}
-                    participant={
-                      ctx.num_participants + " / " + ctx.max_participants
-                    }
-                    picture={ctx.image}
-                    key={idx}
-                    gender={ctx.gender}
-                    onClick={() => {
-                      Router.push(`/event/${ctx.id}`);
-                    }}
-                  />
+                  <Box key={idx} m={{base:"auto", lg: "inherit"}}>
+                    <Card
+                      name={ctx.name}
+                      creator={ctx.created_by.name}
+                      location={ctx.location}
+                      date={ctx.date}
+                      time={ctx.start + " - " + ctx.finish}
+                      participant={
+                        ctx.num_participants + " / " + ctx.max_participants
+                      }
+                      picture={ctx.image}
+                      gender={ctx.gender}
+                      onClick={() => {
+                        Router.push(`/event/${ctx.id}`);
+                      }}
+                    />
+                  </Box>
                 ))}
               </Flex>
             </Flex>

@@ -6,11 +6,11 @@ export default function Card({ windowWidth, title, picture, paragraph, date }) {
     <Flex
       w={{ base: "100%", lg: "46%" }}
       h={{ base: "160px", md: "200px" }}
-      border="1px solid #C0C0C0"
+      border="1px"
       borderRadius="10px"
+      borderColor="gray.400"
       p="20px"
       gap="6"
-      borderShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
     >
       <Image
         src={picture}
