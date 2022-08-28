@@ -204,7 +204,7 @@ export default function Dashboard() {
                     picture={"http://temanraga.xyz" + ctx.image}
                     gender={ctx.gender}
                     onClick={() => {
-                      Router.push(`/event/${ctx.id}`);
+                      router.push(`/event/${ctx.id}`);
                     }}
                   />
                 </Box>
