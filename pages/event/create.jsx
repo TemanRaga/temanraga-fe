@@ -13,6 +13,7 @@ import {
   Stack,
   Box,
   Select,
+  Image,
   useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
@@ -99,10 +100,10 @@ function CreateEvent() {
         clientData.description &&
         clientData.finish &&
         clientData.date &&
-        clientData.gender &&
         clientData.location &&
         clientData.max_participants &&
-        clientData.start
+        clientData.start &&
+        clientData.image
       )
     ) {
       toast({
@@ -155,8 +156,8 @@ function CreateEvent() {
       })
       .catch((err) => {
         toast({
-          title: "Failed creating account",
-          description: "Please try again later",
+          title: "Gagal mengedit aktivitas",
+          description: "Coba lagi di lain waktu",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -323,36 +324,32 @@ function CreateEvent() {
             <Text color="#2F2F2F" fontWeight={500} mb="16px">
               Foto atau logo aktivitas
             </Text>
-
-            {isUploaded ? (
-              <HStack>
-                <Box
-                  fontWeight={500}
-                  borderRadius={"4px"}
-                  border="1px solid #2B6CB0"
-                  px="45px"
-                  py="7px"
-                >
-                  Sesuatu.jpg
-                </Box>
-                <Stack border="1px solid #C53030" borderRadius={"4px"} p="10px">
-                  <Icon icon="fa-solid:trash-alt" color="#C53030" />
-                </Stack>
-              </HStack>
-            ) : (
-              <HStack>
-                <Input
-                  w="fit-content"
-                  type="file"
-                  accept="image/x-png,image/jpg,image/jpeg"
-                  onChange={(e) =>
-                    setClientData({
-                      ...clientData,
-                      image: e.target.files[0],
-                    })
-                  }
-                ></Input>
-              </HStack>
+            <HStack>
+              <Input
+                w="fit-content"
+                type="file"
+                accept="image/x-png,image/jpg,image/jpeg"
+                onChange={(e) => {
+                  setClientData({
+                    ...clientData,
+                    image: e.target.files[0],
+                  });
+                  setIsUploaded(true);
+                }}
+              ></Input>
+            </HStack>
+            {isUploaded && (
+              <Flex direction="column" w="100%">
+                <Image
+                  mt="8"
+                  src={URL.createObjectURL(clientData.image)}
+                  border="1px"
+                  borderColor="gray.400"
+                  w={{ base: "100%", lg: "50%" }}
+                  h={{ base: "200px", md: "300px" }}
+                  objectFit="cover"
+                />
+              </Flex>
             )}
             <Flex w="full" alignItems="center">
               <Button
@@ -367,7 +364,6 @@ function CreateEvent() {
                 Buat Aktivitas
               </Button>
             </Flex>
-            {clientData.image && <p>{clientData.image.name}</p>}
           </FormControl>
         </VStack>
       </Flex>

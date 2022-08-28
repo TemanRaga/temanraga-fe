@@ -43,6 +43,7 @@ const Navbar = () => {
               w="full"
               p="4"
               fontWeight="semibold"
+              textAlign="center"
               style={{ textDecoration: "none" }}
             >
               Aktivitas
@@ -52,6 +53,7 @@ const Navbar = () => {
             <Link
               w="full"
               p="4"
+              textAlign="center"
               fontWeight="semibold"
               style={{ textDecoration: "none" }}
             >
@@ -64,7 +66,9 @@ const Navbar = () => {
                 <Link
                   w="full"
                   p="4"
+                  pr="8"
                   fontWeight="semibold"
+                  textAlign="center"
                   style={{ textDecoration: "none" }}
                 >
                   Dashboard

@@ -9,15 +9,16 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { localEnv, serverEnv } from "../../common/constant/env";
+import Head from "next/head";
+import { serverEnv } from "../../common/constant/env";
 import Router from "next/router";
 import Cookies from "js-cookie";
 import urlSplitter from "../../common/helper/urlSplitter";
-import Head from "next/head";
 
 export default function EventDetail() {
   const toast = useToast();
   const [isJoined, setIsJoined] = useState(false);
+  const [isNewlyJoined, setIsNewlyJoined] = useState(false);
   const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const [idUser, setIdUser] = useState(Cookies.get("id-user"));
   const [isLoadingJoin, setIsLoadingJoin] = useState(false);
@@ -89,15 +90,14 @@ export default function EventDetail() {
 
   const handleRegister = () => {
     setIsLoadingJoin(true);
-    fetch(`${serverEnv}/api/v1/events/${id}/`, {
+    fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
-        console.log(res);
-        if (res.status !== 201) {
+        if (res.status !== 200) {
           toast({
             title: `${res.statusText}`,
             description: "Gagal untuk mengikuti aktivitas",
@@ -107,6 +107,7 @@ export default function EventDetail() {
           });
         } else {
           setIsJoined(true);
+          setIsNewlyJoined(true);
           setTimeout(() => {
             toast({
               title: "Edit berhasil",
@@ -115,9 +116,6 @@ export default function EventDetail() {
               duration: 2000,
               isClosable: true,
             });
-            setTimeout(() => {
-              Router.push("/dashboard");
-            }, 2000);
           }, 500);
         }
         setIsLoadingJoin(false);
@@ -136,7 +134,7 @@ export default function EventDetail() {
 
   const handleDelete = () => {
     setIsLoadingDelete(true);
-    fetch(`${serverEnv}/api/v1/events/${id}/`, {
+    fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
@@ -185,7 +183,7 @@ export default function EventDetail() {
   return (
     <>
       <Head>
-        <title>TemanRaga - Event Detail</title>
+        <title>TemanRaga - Create Event</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Flex mt="8px" mb="50px" flexDirection="column" px="3%">
@@ -201,7 +199,7 @@ export default function EventDetail() {
         </Flex>
 
         <Flex
-          p="36px"
+          p="48px"
           boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
           style={{ zIndex: "4" }}
           width="80%"
@@ -250,14 +248,17 @@ export default function EventDetail() {
               <HStack gap={4} flexDirection="row">
                 <Icon width="24px" height="24px" icon="bi:person-fill" />
                 <Text>
-                  {participants && participants.length} / {maxParticipants}
+                  {isNewlyJoined
+                    ? participants.length + 1
+                    : participants.length}{" "}
+                  / {maxParticipants}
                 </Text>
               </HStack>
 
               <HStack gap={4} flexDirection="row">
                 <Icon width="24px" height="24px" icon="akar-icons:clock" />
                 <Text>
-                  {start} - {finish}
+                  {start} : {finish}
                 </Text>
               </HStack>
             </Flex>
@@ -265,8 +266,8 @@ export default function EventDetail() {
 
           <Flex
             gap={5}
-            mt="3%"
-            flexDirection={{ sm: "column", md: "column", lg: "row" }}
+            mt={(idUser && !isJoined) || isOwner ? "3%" : null}
+            flexDirection={{ sm: "column", lg: "row" }}
           >
             {idUser && !isJoined && (
               <Button

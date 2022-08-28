@@ -55,13 +55,13 @@ function Card({
       />
       <VStack align={"flex-start"} p="24px">
         <HStack justify={"space-between"} w="full">
-          <HStack>
+          <HStack w="70%">
             <Text fontWeight={600} fontSize="14px">
               {name}
             </Text>
             <Gender gender={gender} />
           </HStack>
-          <HStack>
+          <HStack w="25%">
             <Icon icon="bi:person-fill" />
             <Text>{participant}</Text>
           </HStack>
