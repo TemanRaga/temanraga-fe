@@ -97,14 +97,14 @@ export default function EventDetail() {
 
   const handleRegister = () => {
     setIsLoadingJoin(true);
-    fetch(`${serverEnv}/api/v1/events/${id}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
-        if (res.status !== 200) {
+        if (res.status !== 201) {
           toast({
             title: `${res.statusText}`,
             description: "Gagal untuk mengikuti aktivitas",
@@ -124,6 +124,10 @@ export default function EventDetail() {
               isClosable: true,
             });
           }, 500);
+
+          setTimeout(() => {
+            Router.push("/dashboard");
+          }, 2000);
         }
         setIsLoadingJoin(false);
       })
@@ -141,7 +145,7 @@ export default function EventDetail() {
 
   const handleDelete = () => {
     setIsLoadingDelete(true);
-    fetch(`${serverEnv}/api/v1/events/${id}`, {
+    fetch(`${serverEnv}/api/v1/events/${id}/`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

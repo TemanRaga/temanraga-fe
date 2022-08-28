@@ -34,6 +34,7 @@ function Card({
   time,
   picture,
   onClick,
+  isVerified
 }) {
   return (
     <Box
@@ -67,7 +68,7 @@ function Card({
         </HStack>
         <HStack>
           <Text>{creator}</Text>
-          <Icon icon="bi:check-circle-fill" />
+          {isVerified && <Icon icon="bi:check-circle-fill" />}
         </HStack>
         <HStack>
           <Icon icon="ci:location" />
@@ -96,7 +97,7 @@ Card.defaultProps = {
   date: "0 January 2022",
   time: "00:00 - 00:00",
   isOfficial: true,
-  onClick: () => {},
+  onClick: () => { },
   gender: 0,
   picture:
     "https://images.ctfassets.net/hrltx12pl8hq/4f6DfV5DbqaQUSw0uo0mWi/6fbcf889bdef65c5b92ffee86b13fc44/shutterstock_376532611.jpg?fit=fill&w=800&h=300",
