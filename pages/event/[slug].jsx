@@ -276,7 +276,7 @@ export default function EventDetail() {
             mt={(idUser && !isJoined && !isOwner) || isOwner ? "3%" : null}
             flexDirection={{ sm: "column", lg: "row" }}
           >
-            {(idUser && !isJoined && !isOwner) && (
+            {idUser && !isJoined && !isOwner && (
               <Button
                 isLoading={isLoadingJoin}
                 colorScheme="blue"
@@ -288,7 +288,10 @@ export default function EventDetail() {
             )}
             {isOwner && (
               <>
-                <Link href={`/event/edit/${id}`} style={{textDecoration: "none"}}>
+                <Link
+                  href={`/event/edit/${id}`}
+                  style={{ textDecoration: "none" }}
+                >
                   <Button colorScheme="blue" variant="outline" w="100%">
                     Edit Aktivitas
                   </Button>
@@ -307,7 +310,7 @@ export default function EventDetail() {
         </Flex>
 
         <Flex
-          p="36px"
+          p="48px"
           boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
           style={{ zIndex: "4" }}
           width="80%"
@@ -317,36 +320,33 @@ export default function EventDetail() {
           flexDirection="column"
           borderRadius="10px"
         >
-          <Text fontSize="xl" fontWeight="semibold" mb="8px">
-            Participants
+          <Text fontSize="xl" fontWeight="semibold" mb="16px">
+            Partisipan
           </Text>
 
           <TableContainer>
             <Table variant="tr-simple">
               <Thead>
                 <Tr>
-                  <Th isNumeric>No</Th>
+                  <Th isNumeric w="48px">
+                    No
+                  </Th>
                   <Th px="16">Nama</Th>
-                  {isOwner &&
-                    <Th px="16">Email</Th>
-                  }
+                  {isOwner && <Th px="16">Email</Th>}
                 </Tr>
               </Thead>
               <Tbody>
                 {participants &&
                   participants.map((ctx, idx) => (
                     <Tr key={ctx.name}>
-                      <Td>{idx + 1}</Td>
+                      <Td textAlign="center">{idx + 1}</Td>
                       <Td>{ctx.name}</Td>
-                      {isOwner &&
-                        <Td>{ctx.email}</Td>
-                      }
+                      {isOwner && <Td>{ctx.email}</Td>}
                     </Tr>
                   ))}
               </Tbody>
             </Table>
           </TableContainer>
-
         </Flex>
       </Flex>
     </>
