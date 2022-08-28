@@ -22,6 +22,7 @@ import Cookies from "js-cookie";
 
 export default function Dashboard() {
   const router = useRouter();
+  const [token, setToken] = useState(Cookies.get("access-temanraga"));
   const [hasOngoingActivity, setHasOngoingActivity] = useState(true);
   const [hasCreateActivity, setHasCreateActivity] = useState(true);
   const [hasHistoricActivity, setHasHistoricActivity] = useState(true);
@@ -38,25 +39,34 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
+    //if(!token) router.push('/');
     fetch(`${serverEnv}/api/v1/profiles/`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYyMjUyNDIwLCJpYXQiOjE2NjE2NDc2MjAsImp0aSI6IjgwYzliNTc5NDVlMTRlMTViOGYxMTMzZWM3YWVhODkyIiwidXNlcl9pZCI6OCwiZW1haWwiOiJla2lyaWRnZWJhY2tzQGdtYWlsLmNvbSIsIm5hbWUiOiJNdWhhbW1hZCBBbCBGYXJpemkiLCJnZW5kZXIiOjAsImFkZHJlc3MiOiJKYWxhbmFuIiwiaXNfY29tcGxldGVkIjp0cnVlLCJpc192ZXJpZmllZCI6ZmFsc2V9.uLrG2bnY7EM3_Qg9ceWUtJ70voVA4oh2AhIfSvfMdXw`,
       },
     })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setUserData(data.data);
+        setHasOngoingActivity(
+          data.data.event_soon && data.data.event_soon.length > 0 ? true : false
+        );
+        setHasCreateActivity(
+          data.data.event_created && data.data.event_created.length > 0
+            ? true
+            : false
+        );
+        setHasHistoricActivity(
+          data.data.event_done && data.data.event_done.length > 0 ? true : false
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  console.log(userData);
 
   return (
     <Box w="full" py="80px" bg="blue.600">
@@ -64,8 +74,9 @@ export default function Dashboard() {
         direction="column"
         gap="8"
         bg="white"
-        mx="80px"
-        p="24"
+        mx={{ base: "2%", md: "80px" }}
+        p={{ base: "4", md: "24" }}
+        py={{ base: "16", md: null }}
         borderRadius="lg"
       >
         <Text
@@ -97,8 +108,15 @@ export default function Dashboard() {
               text={userData.user.gender ? "Perempuan" : "Laki-laki"}
             />
             <ProfileText title="Alamat" text={userData.user.address} />
-            <Link href="/dashboard/editprofile" textAlign={"center"} mt="6">
-              <Button colorScheme={"blue"}>Edit Profil</Button>
+            <Link
+              href="/dashboard/editprofile"
+              textAlign={"center"}
+              mt="6"
+              style={{ textDecoration: "none" }}
+            >
+              <Button colorScheme={"blue"} bg="blue.600">
+                Edit Profil
+              </Button>
             </Link>
           </Flex>
           <Flex
@@ -114,7 +132,11 @@ export default function Dashboard() {
             {hasOngoingActivity ? (
               <>
                 <Text fontWeight="semibold">Aktivitas terdekat</Text>
-                <Text fontSize="28" fontWeight="semibold" mb="4">
+                <Text
+                  fontSize={{ base: "24", md: "32" }}
+                  fontWeight="semibold"
+                  mb="4"
+                >
                   {userData.event_soon.length != 0 &&
                     userData.event_soon[0].name}
                 </Text>
@@ -164,27 +186,30 @@ export default function Dashboard() {
               Aktivitas yang akan diikuti
             </Text>
             <SimpleGrid
-              minChildWidth={"350px"}
-              spacing="40px"
+              minChildWidth={{ base: "270px", md: "300px" }}
+              spacing={{ base: "16px", lg: "40px" }}
               justifyContent={"center"}
             >
               {userData.event_soon.map((ctx, idx) => (
-                <Card
-                  name={ctx.name}
-                  creator={ctx.created_by.name}
-                  location={ctx.location}
-                  date={ctx.date}
-                  time={ctx.start + " - " + ctx.finish}
-                  participant={
-                    ctx.num_participants + " / " + ctx.max_participants
-                  }
-                  picture={ctx.image}
-                  key={idx}
-                  gender={ctx.gender}
-                  onClick={() => {
-                    Router.push(`/event/${ctx.id}`);
-                  }}
-                />
+                <Box w="fit-content" m={{ base: "auto", md: null }}>
+                  <Card
+                    name={ctx.name}
+                    creator={ctx.created_by.name}
+                    location={ctx.location}
+                    date={ctx.date}
+                    time={ctx.start + " - " + ctx.finish}
+                    participant={
+                      ctx.num_participants + " / " + ctx.max_participants
+                    }
+                    picture={"http://temanraga.xyz"+ctx.image}
+                    
+                    key={idx}
+                    gender={ctx.gender}
+                    onClick={() => {
+                      Router.push(`/event/${ctx.id}`);
+                    }}
+                  />
+                </Box>
               ))}
             </SimpleGrid>
           </Box>
@@ -195,9 +220,14 @@ export default function Dashboard() {
               <Text fontSize="24px" fontWeight="semibold" mr="4">
                 Aktivitas yang telah dibuat
               </Text>
-              <Link href="/event/create">
-                <Button colorScheme={"blue"}>Buat Aktivitas</Button>
-              </Link>
+
+              <Button
+                onClick={() => router.push("/event/create")}
+                colorScheme={"blue"}
+                bg="blue.600"
+              >
+                Buat Aktivitas
+              </Button>
             </HStack>
             <CreatedTable data={userData.event_created} />
           </Box>

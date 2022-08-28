@@ -102,7 +102,7 @@ export default function Home() {
           >
             Yuk Cari TemanRaga-mu sekarang!
           </Text>
-          <Button colorScheme={"blue"}>Cari Aktivitas</Button>
+          <Button colorScheme={"blue"} bg="blue.600">Cari Aktivitas</Button>
         </VStack>
       </HStack>
       <VStack px="5%" mb="5%">

@@ -39,8 +39,7 @@ function Card({
     <Box
       border="1px solid #C0C0C0"
       borderRadius={"8px"}
-      w={{ base: "300px", md: "280px", sm: "220px" }}
-      h={{}}
+      w={{ base: "280px", md: "300px"}}
       fontSize="12px"
       cursor="pointer"
       onClick={onClick}
@@ -50,7 +49,7 @@ function Card({
         objectFit="cover"
         borderRadius={"8px 8px 0px 0px"}
         w="100%"
-        h={{ lg: "140px", md: "120px", sm: "100px" }}
+        h={{ lg: "140px", md: "120px", base: "100px" }}
         overflow="hidden"
       />
       <VStack align={"flex-start"} p="24px">

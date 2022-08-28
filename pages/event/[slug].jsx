@@ -134,10 +134,11 @@ export default function EventDetail() {
 
   const handleDelete = () => {
     setIsLoadingDelete(true);
+    console.log(id);
     fetch(`${serverEnv}/api/v1/events/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${Cookies.get("access-temanraga")}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then(async (res) => {
@@ -153,7 +154,7 @@ export default function EventDetail() {
         } else {
           setTimeout(() => {
             toast({
-              title: "Edit berhasil",
+              title: "Hapus berhasil",
               description: `Anda berhasil menghapus aktivitas`,
               status: "success",
               duration: 2000,
